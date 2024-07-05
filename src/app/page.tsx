@@ -11,11 +11,16 @@ import tbt_logo from '../../public/assets/tbt-logo.jpg';
 import american_burger from '../../public/assets/american-burger.jpg';
 import cheese_burger from '../../public/assets/cheese-burger.jpg';
 import { Navbar } from '@/components/Navbar';
+import { Cart } from '@/components/Cart';
 
 export default function Home() {
 	return (
 		<div className='min-h-screen w-full flex-col'>
 			<Navbar />
+
+			<div className='fixed w-full'>
+				<Cart />
+			</div>
 
 			<main className='flex justify-center min-h-screen pt-44'>
 				<div className='max-w-7xl w-full'>
@@ -26,7 +31,7 @@ export default function Home() {
 							<li className='flex items-center'>
 								<Image
 									src={american_burger}
-									className='w-36 mr-6 cursor-pointer rounded-xl'
+									className='w-36 mr-6 cursor-pointer rounded-2xl'
 									alt='evolve'
 								/>
 
@@ -61,7 +66,7 @@ export default function Home() {
 							<li className='flex items-center mt-4'>
 								<Image
 									src={cheese_burger}
-									className='w-36 mr-6 cursor-pointer rounded-xl'
+									className='w-36 mr-6 cursor-pointer rounded-2xl'
 									alt='evolve'
 								/>
 
