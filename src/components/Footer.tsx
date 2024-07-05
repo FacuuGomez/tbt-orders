@@ -43,7 +43,7 @@ export const Footer = () => {
 						<h3 className='font-bold text-xl mt-4 '>Contactos</h3>
 
 						<a
-							className='inline-flex items-center mb-2 mr-4 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer font-semibold'
+							className='inline-flex items-center mr-4 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer font-semibold'
 							href='https://www.instagram.com/the.burger.town/'
 							target='_blank'
 						>
@@ -51,7 +51,7 @@ export const Footer = () => {
 							Instagram
 						</a>
 						<a
-							className='inline-flex items-center pb-2 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer font-semibold'
+							className='inline-flex items-center text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer font-semibold'
 							href='https://www.instagram.com/the.burger.town/'
 							target='_blank'
 						>

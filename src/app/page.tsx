@@ -15,8 +15,21 @@ interface CartProps {
 	closeModal: () => void;
 }
 
+interface Burger {
+	name: string;
+	price: number;
+	quantity: number;
+}
+
+interface Order {
+	burgers: Burger[];
+	quantity: number;
+	totalAmount: number;
+}
+
 export default function Home() {
 	const [modalIsOpen, setModalIsOpen] = useState(false);
+	const [order, setNewOrder] = useState(false);
 
 	const openModal = () => {
 		setModalIsOpen(true);
@@ -24,6 +37,10 @@ export default function Home() {
 
 	const closeModal = () => {
 		setModalIsOpen(false);
+	};
+
+	const orderHandler = () => {
+		setNewOrder(false);
 	};
 
 	return (
