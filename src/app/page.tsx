@@ -74,7 +74,9 @@ export default function Home() {
 									</div>
 
 									<div>
-										<p className='flex justify-center pb-2'>$9.500</p>
+										<p className='flex justify-center pb-2 font-semibold text-[#491718]'>
+											$9.500
+										</p>
 
 										<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full'>
 											<p className='flex justify-center items-center border-r-2 border-[#491718] hover:bg-[#491718] hover:text-white active:opacity-70 rounded-l-xl cursor-pointer'>
@@ -107,7 +109,9 @@ export default function Home() {
 									</div>
 
 									<div>
-										<p className='flex justify-center pb-2'>$9.500</p>
+										<p className='flex justify-center pb-2 font-semibold text-[#491718]'>
+											$9.500
+										</p>
 
 										<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full'>
 											<p className='flex justify-center items-center border-r-2 border-[#491718] hover:bg-[#491718] hover:text-white active:opacity-70 rounded-l-xl cursor-pointer'>
@@ -127,31 +131,10 @@ export default function Home() {
 						<li>Burger 4</li> */}
 						</ul>
 					</section>
-
-					{/* <section className='bg-[#491718] flex-wrap justify-center text-center mt-5 py-10'>
-					<div>
-          <h3 className='font-bold'>Horarios de atención</h3>
-          
-          <p className='flex justify-center'>
-          <FontAwesomeIcon className='w-6 text-white pr-2' icon={faClock} />
-          Jueves a Domingos de 20:00HS a 10:30HS
-          </p>
-          
-						<h3 className='font-bold mt-4'>Ubicación</h3>
-
-						<p className='flex justify-center'>
-            <FontAwesomeIcon
-            className='w-6 text-white pr-2'
-            icon={faLocationDot}
-            />
-            9 de Julio & Roca
-						</p>
-            </div>
-            </section> */}
 				</div>
 			</main>
 
-			<footer className='flex justify-center bg-[#D2A772]'>
+			<footer className='flex justify-center bg-[#b89061]'>
 				<div className='max-w-7xl w-full'>
 					<div className='flex-col justify-center text-center py-5'>
 						<div className='flex justify-center items-center'>
@@ -167,22 +150,22 @@ export default function Home() {
 						<div className='flex-col justify-center mt-4'>
 							<h3 className='font-bold text-xl'>Horarios de atención</h3>
 
-							<p className='flex justify-center font-medium'>
+							<p className='flex justify-center font-medium opacity-80'>
 								<FontAwesomeIcon className='w-6 pr-2' icon={faClock} />
 								Jueves a Domingos de 20:00HS a 10:30HS
 							</p>
 
 							<h3 className='font-bold text-xl mt-4'>Ubicación</h3>
 
-							<p className='flex justify-center font-medium'>
+							<p className='flex justify-center font-medium opacity-80'>
 								<FontAwesomeIcon className='w-6 pr-2' icon={faLocationDot} />9
 								de Julio & Roca
 							</p>
 
-							<h3 className='font-bold text-xl mt-4 pb-2 '>Contactos</h3>
+							<h3 className='font-bold text-xl mt-4 '>Contactos</h3>
 
 							<a
-								className='flex justify-center items-center pb-2 hover:opacity-80 active:opacity-60 cursor-pointer font-semibold'
+								className='inline-flex items-center mb-2 mr-4 opacity-80 hover:opacity-100 active:opacity-100 cursor-pointer font-semibold'
 								href='https://www.instagram.com/the.burger.town/'
 								target='_blank'
 							>
@@ -190,7 +173,7 @@ export default function Home() {
 								Instagram
 							</a>
 							<a
-								className='flex justify-center items-center pb-2 hover:opacity-80 active:opacity-60 cursor-pointer font-semibold'
+								className='inline-flex items-center pb-2 opacity-80 hover:opacity-100 active:opacity-100 cursor-pointer font-semibold'
 								href='https://www.instagram.com/the.burger.town/'
 								target='_blank'
 							>
