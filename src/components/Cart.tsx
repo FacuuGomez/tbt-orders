@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import american_burger from '../../public/assets/american-burger.jpg';
@@ -37,62 +36,48 @@ export const Cart = () => {
 
 					<hr className='border-2 border-[#491718] rounded-full' />
 
-					<ul className='flex-col my-4'>
-						<li>
-							<input
-								className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2'
-								type='text'
-								placeholder='Nombre'
-							/>
-						</li>
-						<li>
-							<select
-								className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2'
-								name='select'
-							>
-								<option
-									className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2'
-									value='efectivo'
-								>
-									Metodo de pago
-								</option>
-								<option
-									className='p-2 w-3/4 rounded-xl bg-[#d2a772] mb-2'
-									value='efectivo'
-								>
-									Efectivo
-								</option>
-								<option value='tranferencia' selected>
-									Transferencia
-								</option>
-							</select>
-						</li>
-						<li>
-							<select
-								className='p-2 w-3/4 rounded-xl bg-[#d2a772] mb-2'
-								name='select'
-							>
-								<option value='envio/retiro'>Envio / Retiro</option>
-								<option value='envio'>Quiero que me lo envien</option>
-								<option value='retiro' selected>
-									Lo retiro yo mismo
-								</option>
-							</select>
-						</li>
-						<li>
-							<textarea
-								className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60'
-								name='textarea'
-								placeholder='¿ Alguna observación ?'
-							></textarea>
-						</li>
-					</ul>
+					<form className='flex-col my-4'>
+						<input
+							className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+							type='text'
+							placeholder='Nombre'
+						/>
 
-					<p className='flex justify-center font-bold text-2xl mb-4'>
-						Total: <p className='text-[#491718] ml-2'>$9.500</p>
-					</p>
+						<select
+							className='p-2 w-3/4 rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+							name='select'
+						>
+							<option className='text-black/60' value='metodo'>
+								Método de pago
+							</option>
+							<option value='efectivo'>Efectivo</option>
+							<option value='tranferencia'>Transferencia</option>
+						</select>
 
-					<button className='bg-[#491718] hover:opacity-80 active:opacity-60 text-white p-4 rounded-2xl'>
+						<select
+							className='p-2 w-3/4 rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+							name='select'
+						>
+							<option className='text-black/60' value='envio/retiro'>
+								Envio / Retiro
+							</option>
+							<option value='envio'>Quiero que me lo envien</option>
+							<option value='retiro'>Lo retiro yo mismo</option>
+						</select>
+
+						<textarea
+							className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+							name='textarea'
+							placeholder='¿ Alguna observación ?'
+						></textarea>
+					</form>
+
+					<div className='flex justify-center font-bold text-2xl mb-4'>
+						<p>Total:</p>
+						<p className='text-[#491718] ml-2'>$9.500</p>
+					</div>
+
+					<button className='bg-[#491718] hover:opacity-80 active:opacity-60 text-[#d2a772] font-semibold p-4 rounded-2xl'>
 						Enviar pedido
 					</button>
 				</div>
