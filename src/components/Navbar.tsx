@@ -1,10 +1,16 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import tbt_logo from '../../public/assets/tbt-logo.jpg';
 
-export const Navbar = () => {
+interface NavbarProps {
+	openModal: () => void;
+}
+
+export const Navbar = ({ openModal }: NavbarProps) => {
 	return (
 		<div className='fixed max-w-screen w-full'>
 			<header className='flex justify-center py-4 bg-[#D2A772]'>
@@ -20,10 +26,12 @@ export const Navbar = () => {
 
 						<h2 className='font-bold text-2xl'>THE BURGER TOWN</h2>
 
-						<FontAwesomeIcon
-							className='w-6 hover:opacity-80 active:opacity-60 cursor-pointer'
-							icon={faCartShopping}
-						/>
+						<button className='flex' onClick={openModal}>
+							<FontAwesomeIcon
+								className='h-6 hover:opacity-80 active:opacity-60 cursor-pointer'
+								icon={faCartShopping}
+							/>
+						</button>
 					</div>
 				</div>
 			</header>

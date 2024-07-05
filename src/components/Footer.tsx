@@ -28,7 +28,7 @@ export const Footer = () => {
 							<h3 className='font-bold text-xl'>Horarios de atención</h3>
 
 							<p className='flex justify-center font-medium text-black/80'>
-								<FontAwesomeIcon className='w-6 pr-2' icon={faClock} />
+								<FontAwesomeIcon className='h-6 pr-2' icon={faClock} />
 								Jueves a Domingos de 20:00HS a 10:30HS
 							</p>
 						</div>
@@ -36,26 +36,26 @@ export const Footer = () => {
 						<h3 className='font-bold text-xl mt-4'>Ubicación</h3>
 
 						<p className='flex justify-center font-medium text-black/80'>
-							<FontAwesomeIcon className='w-6 pr-2' icon={faLocationDot} />9 de
+							<FontAwesomeIcon className='h-6 pr-2' icon={faLocationDot} />9 de
 							Julio & Roca
 						</p>
 
 						<h3 className='font-bold text-xl mt-4 '>Contactos</h3>
 
 						<a
-							className='inline-flex items-center mb-2 mr-4 text-black/80 hover:text-black/100 active:text-black/100 cursor-pointer font-semibold'
+							className='inline-flex items-center mb-2 mr-4 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer font-semibold'
 							href='https://www.instagram.com/the.burger.town/'
 							target='_blank'
 						>
-							<FontAwesomeIcon className='w-6 mr-2' icon={faInstagram} />
+							<FontAwesomeIcon className='h-6 mr-2' icon={faInstagram} />
 							Instagram
 						</a>
 						<a
-							className='inline-flex items-center pb-2 text-black/80 hover:text-black/100 active:text-black/100 cursor-pointer font-semibold'
+							className='inline-flex items-center pb-2 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer font-semibold'
 							href='https://www.instagram.com/the.burger.town/'
 							target='_blank'
 						>
-							<FontAwesomeIcon className='w-6 mr-2' icon={faWhatsapp} />
+							<FontAwesomeIcon className='h-6 mr-2' icon={faWhatsapp} />
 							Whatsapp
 						</a>
 					</div>
@@ -70,21 +70,21 @@ export const Footer = () => {
 						<ul className='flex items-center'>
 							<li>
 								<FontAwesomeIcon
-									className='w-7 text-black/80 hover:text-black/100 active:text-black/100 cursor-pointer'
+									className='h-6 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 									icon={faGlobe}
 								/>
 							</li>
 							<li>
 								<a href='https://www.instagram.com/geekhound/' target='_blank'>
 									<FontAwesomeIcon
-										className='w-7 mx-4 text-black/80 hover:text-black/100 active:text-black/100 cursor-pointer'
+										className='h-6 mx-4 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 										icon={faInstagram}
 									/>
 								</a>
 							</li>
 							<li>
 								<FontAwesomeIcon
-									className='w-7 text-black/80 hover:text-black/100 active:text-black/100 cursor-pointer'
+									className='h-6 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 									icon={faXTwitter}
 								/>
 							</li>

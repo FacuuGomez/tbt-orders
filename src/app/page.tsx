@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import american_burger from '../../public/assets/american-burger.jpg';
@@ -5,15 +7,32 @@ import cheese_burger from '../../public/assets/cheese-burger.jpg';
 import { Navbar } from '@/components/Navbar';
 import { Cart } from '@/components/Cart';
 import { Footer } from '@/components/Footer';
+import { useState } from 'react';
+
+interface CartProps {
+	modalIsOpen: boolean;
+	openModal: () => void;
+	closeModal: () => void;
+}
 
 export default function Home() {
+	const [modalIsOpen, setModalIsOpen] = useState(false);
+
+	const openModal = () => {
+		setModalIsOpen(true);
+	};
+
+	const closeModal = () => {
+		setModalIsOpen(false);
+	};
+
 	return (
 		<div className='min-h-screen w-full flex-col'>
-			<Navbar />
+			<Navbar openModal={openModal} />
 
-			{/* <div className='fixed w-full'>
-				<Cart />
-			</div> */}
+			<div className={modalIsOpen ? 'fixed w-full' : 'hidden'}>
+				<Cart closeModal={closeModal} />
+			</div>
 
 			<main className='flex justify-center min-h-screen pt-44'>
 				<div className='max-w-7xl w-full'>
