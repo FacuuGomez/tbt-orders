@@ -1,10 +1,6 @@
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faCartShopping,
-	faLocationDot,
-	faGlobe,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLocationDot, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import {
 	faInstagram,
 	faWhatsapp,
@@ -14,44 +10,14 @@ import { faClock } from '@fortawesome/free-regular-svg-icons';
 import tbt_logo from '../../public/assets/tbt-logo.jpg';
 import american_burger from '../../public/assets/american-burger.jpg';
 import cheese_burger from '../../public/assets/cheese-burger.jpg';
+import { Navbar } from '@/components/Navbar';
 
 export default function Home() {
 	return (
 		<div className='min-h-screen w-full flex-col'>
-			<header className='flex justify-center py-4 bg-[#D2A772]'>
-				<div className='flex-col max-w-7xl w-full'>
-					<div className='flex justify-between items-center'>
-						<Image
-							src={tbt_logo}
-							className='w-20 cursor-pointer rounded-full'
-							alt='evolve'
-						/>
+			<Navbar />
 
-						<h2 className='font-bold text-2xl'>THE BURGER TOWN</h2>
-
-						<FontAwesomeIcon
-							className='w-6 hover:opacity-80 active:opacity-60 cursor-pointer'
-							icon={faCartShopping}
-						/>
-					</div>
-				</div>
-			</header>
-
-			<nav className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'>
-				<ul className='flex justify-center gap-8  max-w-7xl w-full'>
-					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
-						Hamburguesas
-					</li>
-					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
-						Bebidas
-					</li>
-					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
-						Dips de salsas
-					</li>
-				</ul>
-			</nav>
-
-			<main className='flex justify-center min-h-screen'>
+			<main className='flex justify-center min-h-screen pt-44'>
 				<div className='max-w-7xl w-full'>
 					<section>
 						<h1 className='py-5 font-bold text-xl'>BURGERS</h1>
