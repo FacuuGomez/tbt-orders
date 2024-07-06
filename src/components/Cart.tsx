@@ -36,7 +36,7 @@ export const Cart = ({ closeModal, order }: CartProps) => {
 
 	return (
 		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen'>
-			<div className='relative justify-center text-center bg-[#b89061] w-2/5 p-6 rounded-3xl'>
+			<div className='relative justify-center text-center bg-[#b89061] mx-5 md:max-w-2xl w-full p-6 rounded-3xl'>
 				<div>
 					<button className='flex' onClick={closeModal}>
 						<FontAwesomeIcon
@@ -48,7 +48,7 @@ export const Cart = ({ closeModal, order }: CartProps) => {
 					<h3 className='text-2xl font-bold pb-6'>PEDIDO</h3>
 
 					<div className='flex justify-center'>
-						<ul className='w-3/4'>
+						<ul className='w-full'>
 							{!order.totalBurgers ? (
 								<li className='text-2xl'>No hay pedidos cargados.</li>
 							) : (
@@ -61,13 +61,13 @@ export const Cart = ({ closeModal, order }: CartProps) => {
 											{burger.name === 'American' ? (
 												<Image
 													src={american_burger}
-													className='w-36 mr-6 cursor-pointer rounded-2xl'
+													className='w-24 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
 													alt='evolve'
 												/>
 											) : (
 												<Image
 													src={cheese_burger}
-													className='w-36 mr-6 cursor-pointer rounded-2xl'
+													className='w-24 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
 													alt='evolve'
 												/>
 											)}
@@ -110,14 +110,14 @@ export const Cart = ({ closeModal, order }: CartProps) => {
 						}}
 					>
 						<input
-							className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+							className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
 							type='text'
 							name='orderName'
 							placeholder='Nombre'
 						/>
 
 						<select
-							className='p-2 w-3/4 rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+							className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
 							name='orderPayment'
 						>
 							<option className='text-black/60' value='metodo'>
@@ -128,7 +128,7 @@ export const Cart = ({ closeModal, order }: CartProps) => {
 						</select>
 
 						<select
-							className='p-2 w-3/4 rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+							className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
 							name='orderDispatch'
 						>
 							<option className='text-black/60' value='envio/retiro'>
@@ -139,7 +139,7 @@ export const Cart = ({ closeModal, order }: CartProps) => {
 						</select>
 
 						<textarea
-							className='p-2 w-3/4 rounded-xl bg-[#d2a772] placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+							className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
 							name='orderNote'
 							placeholder='¿ Alguna observación ?'
 						></textarea>
@@ -149,7 +149,7 @@ export const Cart = ({ closeModal, order }: CartProps) => {
 							<p className='text-[#491718] ml-2'>${order.totalAmount}</p>
 						</div>
 
-						<button className='bg-[#491718] hover:opacity-80 active:opacity-60 text-[#d2a772] font-semibold p-4 rounded-2xl'>
+						<button className='bg-[#491718] hover:opacity-80 active:opacity-60 text-[#d2a772] font-semibold p-4 rounded-2xl w-full'>
 							Enviar pedido
 						</button>
 					</form>

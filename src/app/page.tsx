@@ -118,7 +118,7 @@ export default function Home() {
 			</div>
 
 			<main className='flex justify-center min-h-screen pt-40 sm:pt-44'>
-				<div className='max-w-sm sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
+				<div className='mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
 					<section>
 						<h1 className='font-bold text-xl py-4'>BURGERS</h1>
 

@@ -15,7 +15,7 @@ export const Navbar = ({ openModal, totalBurgers }: NavbarProps) => {
 	return (
 		<div className='fixed max-w-screen w-full'>
 			<header className='flex justify-center py-4 bg-[#D2A772]'>
-				<div className='flex-col max-w-sm sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
+				<div className='flex-col mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
 					<div className='flex justify-between items-center'>
 						<Link href='/'>
 							<Image

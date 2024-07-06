@@ -13,7 +13,7 @@ import tbt_logo from '../../public/assets/tbt-logo.jpg';
 export const Footer = () => {
 	return (
 		<footer className='flex justify-center bg-[#b89061]'>
-			<div className='max-w-sm sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
+			<div className='mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
 				<div>
 					<div className='flex-col justify-center text-center py-5'>
 						<div className='flex justify-center items-center'>
