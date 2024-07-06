@@ -117,30 +117,30 @@ export default function Home() {
 				<Cart closeModal={closeModal} order={order} />
 			</div>
 
-			<main className='flex justify-center min-h-screen pt-44'>
-				<div className='max-w-7xl w-full'>
+			<main className='flex justify-center min-h-screen pt-40 sm:pt-44'>
+				<div className='max-w-sm sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
 					<section>
-						<h1 className='py-5 font-bold text-xl'>BURGERS</h1>
+						<h1 className='font-bold text-xl py-4'>BURGERS</h1>
 
 						<ul>
 							<li className='flex items-center'>
 								<Image
 									src={american_burger}
-									className='w-36 mr-6 cursor-pointer rounded-2xl'
+									className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
 									alt='evolve'
 								/>
 
-								<div className='flex justify-between w-full'>
-									<div>
+								<div className='flex-wrap sm:flex justify-between w-full'>
+									<div className='flex-col content-center'>
 										<p className='font-semibold text-lg'>American burger</p>
-										<p>
+										<p className='text-sm sm:text-medium text-justify'>
 											2 medallones de carne, cheddar, salsa "TBT", tomate,
 											lechuga, cebolla.
 										</p>
 									</div>
 
-									<div className='w-24'>
-										<p className='flex justify-center pb-2 font-semibold text-[#491718]'>
+									<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+										<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
 											$9.500
 										</p>
 
@@ -170,24 +170,25 @@ export default function Home() {
 									</div>
 								</div>
 							</li>
+
 							<li className='flex items-center mt-4'>
 								<Image
 									src={cheese_burger}
-									className='w-36 mr-6 cursor-pointer rounded-2xl'
+									className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
 									alt='evolve'
 								/>
 
-								<div className='flex justify-between w-full'>
-									<div>
+								<div className='flex-wrap sm:flex justify-between w-full'>
+									<div className='flex-col content-center'>
 										<p className='font-semibold text-lg'>Cheese burger</p>
-										<p>
+										<p className='text-sm sm:text-medium text-justify'>
 											2 medallones de carne, cheddar, salsa "TBT", panceta,
 											cebolla caramelizada.
 										</p>
 									</div>
 
-									<div className='w-24'>
-										<p className='flex justify-center pb-2 font-semibold text-[#491718]'>
+									<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+										<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
 											$9.500
 										</p>
 

@@ -6,7 +6,7 @@ import { poppins } from '../../public/fonts/fonts';
 // const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'TBT - pedidos',
+	title: 'TBT - Pedidos',
 	description: 'Created by Geekhound',
 };
 
