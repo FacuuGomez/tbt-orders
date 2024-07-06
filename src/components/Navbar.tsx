@@ -8,9 +8,10 @@ import tbt_logo from '../../public/assets/tbt-logo.jpg';
 
 interface NavbarProps {
 	openModal: () => void;
+	totalBurgers: number;
 }
 
-export const Navbar = ({ openModal }: NavbarProps) => {
+export const Navbar = ({ openModal, totalBurgers }: NavbarProps) => {
 	return (
 		<div className='fixed max-w-screen w-full'>
 			<header className='flex justify-center py-4 bg-[#D2A772]'>
@@ -26,11 +27,15 @@ export const Navbar = ({ openModal }: NavbarProps) => {
 
 						<h2 className='font-bold text-2xl'>THE BURGER TOWN</h2>
 
-						<button className='flex' onClick={openModal}>
+						<button className='flex relative' onClick={openModal}>
 							<FontAwesomeIcon
 								className='h-6 hover:opacity-80 active:opacity-60 cursor-pointer'
 								icon={faCartShopping}
 							/>
+
+							<p className='flex justify-center items-center absolute -bottom-2 text-white -left-2 text-sm bg-red-600 rounded-full px-2 h-5 w-5'>
+								{totalBurgers}
+							</p>
 						</button>
 					</div>
 				</div>

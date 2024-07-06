@@ -4,15 +4,35 @@ import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faTrash } from '@fortawesome/free-solid-svg-icons';
 import american_burger from '../../public/assets/american-burger.jpg';
+import cheese_burger from '../../public/assets/cheese-burger.jpg';
 import { createOrder } from '@/actions/orders-actions';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface CartProps {
 	closeModal: () => void;
+	order: Order;
 }
 
-export const Cart = ({ closeModal }: CartProps) => {
+type BurgerName = 'American' | 'Cheese' | 'Cuatro quesos';
+
+interface Burger {
+	name: BurgerName;
+	price: number;
+	quantity: number;
+}
+
+interface Order {
+	burgers: Burger[];
+	totalBurgers: number;
+	totalAmount: number;
+}
+
+export const Cart = ({ closeModal, order }: CartProps) => {
 	const formRef = useRef<HTMLFormElement>(null);
+
+	useEffect(() => {
+		console.log('cart', order);
+	});
 
 	return (
 		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen'>
@@ -29,28 +49,49 @@ export const Cart = ({ closeModal }: CartProps) => {
 
 					<div className='flex justify-center'>
 						<ul className='w-3/4'>
-							<li className='flex justify-between items-center'>
-								<div className='flex items-center'>
-									<Image
-										src={american_burger}
-										className='w-36 mr-6 cursor-pointer rounded-2xl'
-										alt='evolve'
-									/>
+							{!order.totalBurgers ? (
+								<li className='text-2xl'>No hay pedidos cargados.</li>
+							) : (
+								order.burgers.map((burger) => (
+									<li
+										className='flex justify-between items-center mb-2'
+										key={burger.name}
+									>
+										<div className='flex items-center'>
+											{burger.name === 'American' ? (
+												<Image
+													src={american_burger}
+													className='w-36 mr-6 cursor-pointer rounded-2xl'
+													alt='evolve'
+												/>
+											) : (
+												<Image
+													src={cheese_burger}
+													className='w-36 mr-6 cursor-pointer rounded-2xl'
+													alt='evolve'
+												/>
+											)}
 
-									<div>
-										<p className='font-semibold text-lg'>American burger</p>
-										<p>Cantidad: 1 x $9.500</p>
-									</div>
-								</div>
+											<div>
+												<p className='font-semibold text-lg text-start'>
+													{burger.name} burger
+												</p>
+												<p>
+													Cantidad: {burger.quantity} x ${burger.price}
+												</p>
+											</div>
+										</div>
 
-								<FontAwesomeIcon
-									className='h-6 hover:opacity-80 active:opacity-60 cursor-pointer'
-									icon={faTrash}
-								/>
-							</li>
+										<FontAwesomeIcon
+											className='h-6 hover:opacity-80 active:opacity-60 cursor-pointer'
+											icon={faTrash}
+										/>
+									</li>
+								))
+							)}
 
 							<li className='my-4 font-medium text-[#491718]'>
-								<p>Subtotal: $9.500</p>
+								<p>Subtotal: ${order.totalAmount}</p>
 							</li>
 						</ul>
 					</div>
@@ -105,7 +146,7 @@ export const Cart = ({ closeModal }: CartProps) => {
 
 						<div className='flex justify-center font-bold text-2xl my-4'>
 							<p>Total:</p>
-							<p className='text-[#491718] ml-2'>$9.500</p>
+							<p className='text-[#491718] ml-2'>${order.totalAmount}</p>
 						</div>
 
 						<button className='bg-[#491718] hover:opacity-80 active:opacity-60 text-[#d2a772] font-semibold p-4 rounded-2xl'>
