@@ -40,7 +40,6 @@ export default function Home() {
 	});
 	const [americanQuantity, setAmericanQuantity] = useState(0);
 	const [cheeseQuantity, setCheeseQuantity] = useState(0);
-	// const [totalBurgers, setTotalBurgers] = useState(0);
 
 	const openModal = () => {
 		setModalIsOpen(true);
@@ -114,7 +113,7 @@ export default function Home() {
 			<Navbar openModal={openModal} totalBurgers={order.totalBurgers} />
 
 			<div className={modalIsOpen ? 'fixed w-full' : 'hidden'}>
-				<Cart closeModal={closeModal} order={order} />
+				<Cart closeModal={closeModal} order={order} setOrder={setOrder} />
 			</div>
 
 			<main className='flex justify-center min-h-screen pt-40 sm:pt-44'>
@@ -133,7 +132,7 @@ export default function Home() {
 								<div className='flex-wrap sm:flex justify-between w-full'>
 									<div className='flex-col content-center'>
 										<p className='font-semibold text-lg'>American burger</p>
-										<p className='text-sm sm:text-medium text-justify'>
+										<p className='text-sm sm:text-medium'>
 											2 medallones de carne, cheddar, salsa "TBT", tomate,
 											lechuga, cebolla.
 										</p>
@@ -181,7 +180,7 @@ export default function Home() {
 								<div className='flex-wrap sm:flex justify-between w-full'>
 									<div className='flex-col content-center'>
 										<p className='font-semibold text-lg'>Cheese burger</p>
-										<p className='text-sm sm:text-medium text-justify'>
+										<p className='text-sm sm:text-medium'>
 											2 medallones de carne, cheddar, salsa "TBT", panceta,
 											cebolla caramelizada.
 										</p>

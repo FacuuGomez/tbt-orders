@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faGlobe } from '@fortawesome/free-solid-svg-icons';
 import {
@@ -69,29 +68,29 @@ export const Footer = () => {
 							<p className='text-sm text-black/80'>© 2024 Geekhound, S.A.S.</p>
 
 							<ul className='flex items-center'>
-								<li>
+								{/* <li>
 									<FontAwesomeIcon
 										className='h-6 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 										icon={faGlobe}
 									/>
-								</li>
+								</li> */}
 								<li>
 									<a
 										href='https://www.instagram.com/geekhound/'
 										target='_blank'
 									>
 										<FontAwesomeIcon
-											className='h-6 mx-4 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
+											className='h-6 mx-2 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 											icon={faInstagram}
 										/>
 									</a>
 								</li>
-								<li>
+								{/* <li>
 									<FontAwesomeIcon
 										className='h-6 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 										icon={faXTwitter}
 									/>
-								</li>
+								</li> */}
 							</ul>
 						</div>
 					</div>
