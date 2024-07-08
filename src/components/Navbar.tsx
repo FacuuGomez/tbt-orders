@@ -9,9 +9,16 @@ import tbt_logo from '../../public/assets/tbt-logo.jpg';
 interface NavbarProps {
 	totalBurgers: number;
 	openModal: () => void;
+	openBurgers: () => void;
+	openDrinks: () => void;
 }
 
-export const Navbar = ({ openModal, totalBurgers }: NavbarProps) => {
+export const Navbar = ({
+	openModal,
+	totalBurgers,
+	openBurgers,
+	openDrinks,
+}: NavbarProps) => {
 	return (
 		<div className='fixed max-w-screen w-full'>
 			<header className='flex justify-center py-4 bg-[#D2A772]'>
@@ -44,10 +51,10 @@ export const Navbar = ({ openModal, totalBurgers }: NavbarProps) => {
 			<nav className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'>
 				<ul className='flex justify-center gap-8 max-w-7xl w-full'>
 					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
-						Hamburguesas
+						<button onClick={openBurgers}>Hamburguesas</button>
 					</li>
 					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
-						Bebidas
+						<button onClick={openDrinks}>Bebidas</button>
 					</li>
 					{/* <li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
 						Dips
