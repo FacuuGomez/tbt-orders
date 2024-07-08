@@ -104,12 +104,7 @@ export default function Home() {
 
 	useEffect(() => {
 		orderHandler();
-	}, [americanQuantity, cheeseQuantity]);
-
-	// useEffect(() => {
-
-	// 	console.log(order);
-	// }, [order]);
+	}, [americanQuantity, cheeseQuantity, orderHandler]);
 
 	return (
 		<div className='min-h-screen w-full flex-col'>
