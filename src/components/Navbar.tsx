@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import tbt_logo from '../../public/assets/tbt-logo.jpg';
-import { useEffect } from 'react';
 
 interface NavbarProps {
 	totalBurgers: number;
@@ -15,13 +14,11 @@ interface NavbarProps {
 }
 
 export const Navbar = ({
-	openModal,
 	totalBurgers,
+	openModal,
 	openBurgers,
 	openDrinks,
 }: NavbarProps) => {
-	useEffect(() => {}, [totalBurgers]);
-
 	return (
 		<div className='fixed max-w-screen w-full'>
 			<header className='flex justify-center py-4 bg-[#D2A772]'>
