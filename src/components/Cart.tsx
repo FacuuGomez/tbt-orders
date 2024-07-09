@@ -85,6 +85,30 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 		event.preventDefault();
 
 		const phoneNumber = '541141786108';
+		// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+		// 	`\n*Pedido*: ${message.orderName}\n*Pago*: ${
+		// 		message.orderPayment
+		// 	}\n*Delivery*: ${
+		// 		message.orderDispatch ? message.orderDispatch : 'Retiro'
+		// 	}\n\n-------------------------------\nBURGERS\n\n- ${
+		// 		order.burgers[0].name
+		// 	} burger: ${order.burgers[0].quantity} x $${order.burgers[0].price} = $${
+		// 		order.burgers[0].price * order.burgers[0].quantity
+		// 	}\n${
+		// 		order.burgers.length > 1
+		// 			? `- ${order.burgers[1].name} burger: ${
+		// 					order.burgers[1].quantity
+		// 			  } x $${order.burgers[1].price} = $${
+		// 					order.burgers[1].price * order.burgers[1].quantity
+		// 			  }\n`
+		// 			: ''
+		// 	}\nART.: ${order.totalBurgers}   TOTAL: $${
+		// 		order.totalAmount
+		// 	}\n-------------------------------\n\n${
+		// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
+		// 	}`
+		// )}`;
+
 		const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
 			`\n*Pedido*: ${message.orderName}\n*Pago*: ${
 				message.orderPayment
