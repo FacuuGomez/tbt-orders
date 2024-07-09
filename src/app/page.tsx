@@ -275,8 +275,8 @@ export default function Home() {
 										<div className='flex-col content-center'>
 											<p className='font-semibold text-lg'>American burger</p>
 											<p className='text-sm sm:text-medium'>
-												2 medallones de carne, cheddar, salsa "TBT", tomate,
-												lechuga, cebolla.
+												2 medallones de carne, cheddar, salsa &quot;TBT&quot;,
+												tomate, lechuga, cebolla.
 											</p>
 										</div>
 
@@ -323,8 +323,8 @@ export default function Home() {
 										<div className='flex-col content-center'>
 											<p className='font-semibold text-lg'>Cheese burger</p>
 											<p className='text-sm sm:text-medium'>
-												2 medallones de carne, cheddar, salsa "TBT", panceta,
-												cebolla caramelizada.
+												2 medallones de carne, cheddar, salsa &quot;TBT&quot;,
+												panceta, cebolla caramelizada.
 											</p>
 										</div>
 
