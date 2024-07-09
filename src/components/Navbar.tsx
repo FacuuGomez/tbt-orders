@@ -7,14 +7,14 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import tbt_logo from '../../public/assets/tbt-logo.jpg';
 
 interface NavbarProps {
-	totalBurgers: number;
+	totalArticles: number;
 	openModal: () => void;
 	openBurgers: () => void;
 	openDrinks: () => void;
 }
 
 export const Navbar = ({
-	totalBurgers,
+	totalArticles,
 	openModal,
 	openBurgers,
 	openDrinks,
@@ -41,7 +41,7 @@ export const Navbar = ({
 							/>
 
 							<p className='flex justify-center items-center absolute -bottom-2 text-white -left-2 text-sm bg-red-600 rounded-full h-5 w-5'>
-								{totalBurgers}
+								{totalArticles}
 							</p>
 						</button>
 					</div>
@@ -51,7 +51,7 @@ export const Navbar = ({
 			<nav className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'>
 				<ul className='flex justify-center gap-8 max-w-7xl w-full'>
 					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
-						<button onClick={openBurgers}>Hamburguesas</button>
+						<button onClick={openBurgers}>Burgers</button>
 					</li>
 					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
 						<button onClick={openDrinks}>Bebidas</button>

@@ -25,17 +25,26 @@ type messageOrderHandler = (
 		| React.ChangeEvent<HTMLTextAreaElement>
 ) => void;
 
-type BurgerName = 'American' | 'Cheese' | 'Cuatro quesos';
+type ArticleName =
+	| 'American burger'
+	| 'Cheese burger'
+	| 'Burger 4 quesos'
+	| 'BBQ burger'
+	| 'Coca Cola'
+	| 'Schneider';
 
-interface Burger {
-	name: BurgerName;
+interface Article {
+	name: ArticleName;
 	price: number;
 	quantity: number;
+	image: string;
 }
 
 interface Order {
-	burgers: Burger[];
+	articles: Article[];
 	totalBurgers: number;
+	totalDrinks: number;
+	totalArticles: number;
 	totalAmount: number;
 }
 
@@ -85,26 +94,62 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 		event.preventDefault();
 
 		const phoneNumber = '541141786108';
+		// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+		// 	`\n*Pedido*: ${message.orderName}\n*Pago*: ${
+		// 		message.orderPayment
+		// 	}\n*Delivery*: ${
+		// 		message.orderDispatch
+		// 	}\n\n-------------------------------\nBURGERS\n\n- ${
+		// 		order.articles[0].name
+		// 	} burger: ${order.articles[0].quantity} x $${
+		// 		order.articles[0].price
+		// 	} = $${order.articles[0].price * order.articles[0].quantity}\n${
+		// 		order.articles.length > 1
+		// 			? `- ${order.articles[1].name} burger: ${
+		// 					order.articles[1].quantity
+		// 			  } x $${order.articles[1].price} = $${
+		// 					order.articles[1].price * order.articles[1].quantity
+		// 			  }\n`
+		// 			: ''
+		// 	}\nART.: ${order.totalBurgers}   TOTAL: $${
+		// 		order.totalAmount
+		// 	}\n-------------------------------\n\n${
+		// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
+		// 	}`
+		// )}`;
+
+		// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+		// 	`\n*Pedido*: ${message.orderName}\n*Pago*: ${
+		// 		message.orderPayment
+		// 	}\n*Delivery*: ${
+		// 		message.orderDispatch
+		// 	}\n\n-------------------------------\nBURGERS\n\n${order.articles.map(
+		// 		(article) => {
+		// 			return `- ${article.name}: ${article.quantity} x $${
+		// 				article.price
+		// 			}= $${article.price * article.quantity}\n\n`;
+		// 		}
+		// 	)}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
+		// 		order.totalDrinks
+		// 	}\n\nTOTAL: $${order.totalAmount}\n-------------------------------\n\n${
+		// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
+		// 	}`
+		// )}`;
+
 		const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-			`\n*Pedido*: ${message.orderName}\n*Pago*: ${
+			`\n*Nombre*: ${message.orderName}\n*Pago*: ${
 				message.orderPayment
 			}\n*Delivery*: ${
 				message.orderDispatch
-			}\n\n-------------------------------\nBURGERS\n\n- ${
-				order.burgers[0].name
-			} burger: ${order.burgers[0].quantity} x $${order.burgers[0].price} = $${
-				order.burgers[0].price * order.burgers[0].quantity
-			}\n${
-				order.burgers.length > 1
-					? `- ${order.burgers[1].name} burger: ${
-							order.burgers[1].quantity
-					  } x $${order.burgers[1].price} = $${
-							order.burgers[1].price * order.burgers[1].quantity
-					  }\n`
-					: ''
-			}\nART.: ${order.totalBurgers}   TOTAL: $${
-				order.totalAmount
-			}\n-------------------------------\n\n${
+			}\n\n-------------------------------\nPEDIDO\n\n${order.articles
+				.map((article) => {
+					return `- ${article.name}: ${article.quantity} x $${
+						article.price
+					} = $${article.price * article.quantity}\n\n`;
+				})
+				.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
+				order.totalDrinks
+			}\n\n*TOTAL: $${order.totalAmount}*\n-------------------------------\n\n${
 				message.orderNote ? `*Observación*: ${message.orderNote}` : ''
 			}`
 		)}`;
@@ -118,7 +163,7 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 
 	return (
 		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen'>
-			<div className='relative justify-center text-center bg-[#b89061] mx-5 md:max-w-2xl w-full p-6 rounded-3xl'>
+			<div className='relative justify-center text-center bg-[#b89061] m-5 md:max-w-2xl w-full p-6 rounded-3xl'>
 				<div>
 					<button className='flex' onClick={closeModal}>
 						<FontAwesomeIcon
@@ -129,37 +174,45 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 
 					<h3 className='text-2xl font-bold pb-6'>PEDIDO</h3>
 
-					<div className='flex justify-center'>
-						<ul className='w-full'>
-							{!order.totalBurgers ? (
+					<div className='flex justify-center '>
+						<ul className='w-full pr-[6px] max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
+							{!order.totalArticles ? (
 								<li className='text-2xl'>No hay pedidos cargados.</li>
 							) : (
-								order.burgers.map((burger) => (
+								order.articles.map((article) => (
 									<li
 										className='flex justify-between items-center mb-2'
-										key={burger.name}
+										key={article.name}
 									>
 										<div className='flex items-center'>
-											{burger.name === 'American' ? (
+											{/* {article.name === 'American burger' ? (
 												<Image
 													src={american_burger}
-													className='w-24 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-													alt='evolve'
+													className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
+													alt='American burger'
 												/>
 											) : (
 												<Image
 													src={cheese_burger}
-													className='w-24 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-													alt='evolve'
+													className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
+													alt='Chesse burger'
 												/>
-											)}
+											)} */}
+
+											<Image
+												src={`/assets/${article.image}`}
+												className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
+												alt='American burger'
+												width={90}
+												height={90}
+											/>
 
 											<div>
 												<p className='font-semibold text-lg text-start'>
-													{burger.name} burger
+													{article.name}
 												</p>
 												<p>
-													Cantidad: {burger.quantity} x ${burger.price}
+													Cantidad: {article.quantity} x ${article.price}
 												</p>
 											</div>
 										</div>
@@ -173,14 +226,13 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 									</li>
 								))
 							)}
-
-							<li className='my-4 font-medium text-[#491718]'>
-								<p>Subtotal: ${order.totalAmount}</p>
-							</li>
 						</ul>
 					</div>
 
-					<hr className='border-2 border-[#491718] rounded-full' />
+					<div className='my-2 font-medium text-[#491718]'>
+						<p>Subtotal: ${order.totalAmount}</p>
+					</div>
+					<hr className='border-2 border-[#491718] rounded-full mt-2' />
 
 					<form className='flex-col my-4' onSubmit={handleSubmit} ref={formRef}>
 						<input
