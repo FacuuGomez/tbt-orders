@@ -89,7 +89,7 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 			`\n*Pedido*: ${message.orderName}\n*Pago*: ${
 				message.orderPayment
 			}\n*Delivery*: ${
-				message.orderDispatch ? message.orderDispatch : 'Retiro'
+				message.orderDispatch
 			}\n\n-------------------------------\nBURGERS\n\n- ${
 				order.burgers[0].name
 			} burger: ${order.burgers[0].quantity} x $${order.burgers[0].price} = $${
