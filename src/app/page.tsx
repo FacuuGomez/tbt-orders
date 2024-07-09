@@ -52,19 +52,61 @@ export default function Home() {
 		setBurgersIsOpen(false);
 	};
 
-	// const americanHandler: QuantityHandler = (event) => {
-	// 	if (event.currentTarget.name === 'plusButton')
-	// 		setAmericanQuantity(americanQuantity + 1);
-	// 	if (event.currentTarget.name === 'minusButton' && americanQuantity !== 0)
-	// 		setAmericanQuantity(americanQuantity - 1);
-	// };
+	const americanHandler: QuantityHandler = (event) => {
+		if (event.currentTarget.name === 'plusButton')
+			setAmericanQuantity(americanQuantity + 1);
+		if (event.currentTarget.name === 'minusButton' && americanQuantity > 0)
+			setAmericanQuantity(americanQuantity - 1);
+	};
 
-	// const cheeseHandler: QuantityHandler = (event) => {
-	// 	if (event.currentTarget.name === 'plusButton')
-	// 		setCheeseQuantity(cheeseQuantity + 1);
-	// 	if (event.currentTarget.name === 'minusButton' && cheeseQuantity !== 0)
-	// 		setCheeseQuantity(cheeseQuantity - 1);
-	// };
+	const cheeseHandler: QuantityHandler = (event) => {
+		if (event.currentTarget.name === 'plusButton')
+			setCheeseQuantity(cheeseQuantity + 1);
+		if (event.currentTarget.name === 'minusButton' && cheeseQuantity > 0)
+			setCheeseQuantity(cheeseQuantity - 1);
+	};
+
+	const orderHandler = () => {
+		const americanBurger: Burger = {
+			name: 'American',
+			price: 9500,
+			quantity: americanQuantity,
+		};
+
+		const cheeseBurger: Burger = {
+			name: 'Cheese',
+			price: 10500,
+			quantity: cheeseQuantity,
+		};
+
+		const updatedBurgers: Burger[] = [];
+
+		if (americanBurger.quantity > 0) {
+			updatedBurgers.push(americanBurger);
+		}
+
+		if (cheeseBurger.quantity > 0) {
+			updatedBurgers.push(cheeseBurger);
+		}
+
+		if (updatedBurgers.length > -1) {
+			const updatedTotalAmount = updatedBurgers.reduce((total, burger) => {
+				return total + burger.price * burger.quantity;
+			}, 0);
+
+			setOrder({
+				burgers: updatedBurgers,
+				totalBurgers: americanQuantity + cheeseQuantity,
+				totalAmount: updatedTotalAmount,
+			});
+		}
+	};
+
+	useEffect(() => {
+		orderHandler();
+	}, [cheeseQuantity, americanQuantity]);
+
+	// ---
 
 	// const orderHandler = useCallback(() => {
 	// 	const americanBurger: Burger = {
@@ -106,59 +148,61 @@ export default function Home() {
 	// 	orderHandler();
 	// }, [orderHandler]);
 
-	const americanHandler: QuantityHandler = (event) => {
-		if (event.currentTarget.name === 'plusButton')
-			setAmericanQuantity((prev) => prev + 1);
-		if (event.currentTarget.name === 'minusButton' && americanQuantity !== 0)
-			setAmericanQuantity((prev) => prev - 1);
-	};
+	// ---
 
-	const cheeseHandler: QuantityHandler = (event) => {
-		if (event.currentTarget.name === 'plusButton')
-			setCheeseQuantity((prev) => prev + 1);
-		if (event.currentTarget.name === 'minusButton' && cheeseQuantity !== 0)
-			setCheeseQuantity((prev) => prev - 1);
-	};
+	// const americanHandler: QuantityHandler = (event) => {
+	// 	if (event.currentTarget.name === 'plusButton')
+	// 		setAmericanQuantity((prev) => prev + 1);
+	// 	if (event.currentTarget.name === 'minusButton' && americanQuantity !== 0)
+	// 		setAmericanQuantity((prev) => prev - 1);
+	// };
 
-	useEffect(() => {
-		const orderHandler = () => {
-			const americanBurger: Burger = {
-				name: 'American',
-				price: 9500,
-				quantity: americanQuantity,
-			};
+	// const cheeseHandler: QuantityHandler = (event) => {
+	// 	if (event.currentTarget.name === 'plusButton')
+	// 		setCheeseQuantity((prev) => prev + 1);
+	// 	if (event.currentTarget.name === 'minusButton' && cheeseQuantity !== 0)
+	// 		setCheeseQuantity((prev) => prev - 1);
+	// };
 
-			const cheeseBurger: Burger = {
-				name: 'Cheese',
-				price: 10500,
-				quantity: cheeseQuantity,
-			};
+	// useEffect(() => {
+	// 	const orderHandler = () => {
+	// 		const americanBurger: Burger = {
+	// 			name: 'American',
+	// 			price: 9500,
+	// 			quantity: americanQuantity,
+	// 		};
 
-			const updatedBurgers: Burger[] = [];
+	// 		const cheeseBurger: Burger = {
+	// 			name: 'Cheese',
+	// 			price: 10500,
+	// 			quantity: cheeseQuantity,
+	// 		};
 
-			if (americanBurger.quantity > 0) {
-				updatedBurgers.push(americanBurger);
-			}
+	// 		const updatedBurgers: Burger[] = [];
 
-			if (cheeseBurger.quantity > 0) {
-				updatedBurgers.push(cheeseBurger);
-			}
+	// 		if (americanBurger.quantity > 0) {
+	// 			updatedBurgers.push(americanBurger);
+	// 		}
 
-			if (updatedBurgers.length > 0) {
-				const updatedTotalAmount = updatedBurgers.reduce((total, burger) => {
-					return total + burger.price * burger.quantity;
-				}, 0);
+	// 		if (cheeseBurger.quantity > 0) {
+	// 			updatedBurgers.push(cheeseBurger);
+	// 		}
 
-				setOrder({
-					burgers: updatedBurgers,
-					totalBurgers: americanQuantity + cheeseQuantity,
-					totalAmount: updatedTotalAmount,
-				});
-			}
-		};
+	// 		if (updatedBurgers.length > 0) {
+	// 			const updatedTotalAmount = updatedBurgers.reduce((total, burger) => {
+	// 				return total + burger.price * burger.quantity;
+	// 			}, 0);
 
-		orderHandler();
-	}, [americanQuantity, cheeseQuantity]);
+	// 			setOrder({
+	// 				burgers: updatedBurgers,
+	// 				totalBurgers: americanQuantity + cheeseQuantity,
+	// 				totalAmount: updatedTotalAmount,
+	// 			});
+	// 		}
+	// 	};
+
+	// 	orderHandler();
+	// }, [americanQuantity, cheeseQuantity]);
 
 	return (
 		<div className='min-h-screen w-full flex-col'>
