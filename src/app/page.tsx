@@ -7,7 +7,7 @@ import cheese_burger from '../../public/assets/cheese-burger.jpg';
 import { Navbar } from '@/components/Navbar';
 import { Cart } from '@/components/Cart';
 import { Footer } from '@/components/Footer';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type QuantityHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -148,48 +148,6 @@ export default function Home() {
 
 	// ---
 
-	// const orderHandler = useCallback(() => {
-	// 	const americanBurger: Burger = {
-	// 		name: 'American',
-	// 		price: 9500,
-	// 		quantity: americanQuantity,
-	// 	};
-
-	// 	const cheeseBurger: Burger = {
-	// 		name: 'Cheese',
-	// 		price: 10500,
-	// 		quantity: cheeseQuantity,
-	// 	};
-
-	// 	const updatedBurgers: Burger[] = [];
-
-	// 	if (americanBurger.quantity > 0) {
-	// 		updatedBurgers.push(americanBurger);
-	// 	}
-
-	// 	if (cheeseBurger.quantity > 0) {
-	// 		updatedBurgers.push(cheeseBurger);
-	// 	}
-
-	// 	if (updatedBurgers.length >= 0) {
-	// 		const updatedTotalAmount = updatedBurgers.reduce((total, burger) => {
-	// 			return total + burger.price * burger.quantity;
-	// 		}, 0);
-
-	// 		setOrder({
-	// 			burgers: updatedBurgers,
-	// 			totalBurgers: americanQuantity + cheeseQuantity,
-	// 			totalAmount: updatedTotalAmount,
-	// 		});
-	// 	}
-	// }, [americanQuantity, cheeseQuantity]);
-
-	// useEffect(() => {
-	// 	orderHandler();
-	// }, [orderHandler]);
-
-	// ---
-
 	// const americanHandler: QuantityHandler = (event) => {
 	// 	if (event.currentTarget.name === 'plusButton')
 	// 		setAmericanQuantity((prev) => prev + 1);
@@ -204,51 +162,11 @@ export default function Home() {
 	// 		setCheeseQuantity((prev) => prev - 1);
 	// };
 
-	// useEffect(() => {
-	// 	const orderHandler = () => {
-	// 		const americanBurger: Burger = {
-	// 			name: 'American',
-	// 			price: 9500,
-	// 			quantity: americanQuantity,
-	// 		};
-
-	// 		const cheeseBurger: Burger = {
-	// 			name: 'Cheese',
-	// 			price: 10500,
-	// 			quantity: cheeseQuantity,
-	// 		};
-
-	// 		const updatedBurgers: Burger[] = [];
-
-	// 		if (americanBurger.quantity > 0) {
-	// 			updatedBurgers.push(americanBurger);
-	// 		}
-
-	// 		if (cheeseBurger.quantity > 0) {
-	// 			updatedBurgers.push(cheeseBurger);
-	// 		}
-
-	// 		if (updatedBurgers.length > 0) {
-	// 			const updatedTotalAmount = updatedBurgers.reduce((total, burger) => {
-	// 				return total + burger.price * burger.quantity;
-	// 			}, 0);
-
-	// 			setOrder({
-	// 				burgers: updatedBurgers,
-	// 				totalBurgers: americanQuantity + cheeseQuantity,
-	// 				totalAmount: updatedTotalAmount,
-	// 			});
-	// 		}
-	// 	};
-
-	// 	orderHandler();
-	// }, [americanQuantity, cheeseQuantity]);
-
 	return (
 		<div className='min-h-screen w-full flex-col'>
 			<Navbar
-				openModal={openModal}
 				totalBurgers={order.totalBurgers}
+				openModal={openModal}
 				openBurgers={openBurgers}
 				openDrinks={openDrinks}
 			/>
