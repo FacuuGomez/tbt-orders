@@ -10,6 +10,9 @@ import { Navbar } from '@/components/Navbar';
 import { Cart } from '@/components/Cart';
 import { Footer } from '@/components/Footer';
 import { useEffect, useState } from 'react';
+import { articlesData } from '../utils/data';
+import { MotionTransition } from '@/components/TransitionComponent';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type QuantityHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -111,7 +114,6 @@ export default function Home() {
 			setSchneiderQuantity(schneiderQuantity - 1);
 	};
 
-
 	useEffect(() => {
 		const orderHandler = () => {
 			const americanBurger: Article = {
@@ -157,6 +159,21 @@ export default function Home() {
 			};
 
 			const updatedArticles: Article[] = [];
+
+			// if (americanQuantity > 0) {
+			// 	const americanBurger = articlesData.burgers.map((burger) => {
+			// 		return (
+			// 			burger.name === 'American burger' && {
+			// 				...burger,
+			// 				quantity: americanQuantity,
+			// 			}
+			// 		);
+			// 	});
+
+			// 	console.log('am', americanBurger);
+
+			// 	updatedArticles.push(americanBurger);
+			// }
 
 			if (americanBurger.quantity > 0) {
 				updatedArticles.push(americanBurger);
@@ -212,6 +229,10 @@ export default function Home() {
 		schneiderQuantity,
 	]);
 
+	// useEffect(() => {
+	// 	console.log(articlesData);
+	// });
+
 	// ---
 
 	// const americanHandler: QuantityHandler = (event) => {
@@ -238,305 +259,405 @@ export default function Home() {
 			/>
 
 			<div className={modalIsOpen ? 'fixed w-full' : 'hidden'}>
-				<Cart closeModal={closeModal} order={order} setOrder={setOrder} />
+				<Cart
+					closeModal={closeModal}
+					modalIsOpen={modalIsOpen}
+					order={order}
+					setOrder={setOrder}
+				/>
 			</div>
 
 			<main className='flex justify-center min-h-screen pt-40 sm:pt-44'>
 				<div className='mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
-					{articlesIsOpen ? (
-						<section>
-							<h1 className='font-bold text-xl py-4'>BURGERS</h1>
+					<AnimatePresence>
+						{articlesIsOpen ? (
+							<motion.section
+								key='burgers'
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0 }}
+								className='relative -z-10'
+							>
+								<motion.h1
+									initial='hidden'
+									animate={{ opacity: 1, x: 0 }}
+									transition={{ delay: 0.2, duration: 0.3 }}
+									variants={{
+										hidden: { opacity: 0, x: -100 },
+										visible: { opacity: 1, x: 0 },
+									}}
+									className='font-bold text-xl py-4'
+								>
+									BURGERS
+								</motion.h1>
 
-							<ul>
-								<li className='flex items-center'>
-									<Image
-										src={american_burger}
-										className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-										alt='evolve'
-									/>
+								<ul>
+									<motion.li
+										initial='hidden'
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ delay: 0.2, duration: 0.3 }}
+										variants={{
+											hidden: { opacity: 0, y: 15 },
+											visible: { opacity: 1, y: 0 },
+										}}
+										className='flex items-center'
+									>
+										<Image
+											src={american_burger}
+											className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
+											alt='evolve'
+										/>
 
-									<div className='flex-wrap sm:flex justify-between w-full'>
-										<div className='flex-col content-center'>
-											<p className='font-semibold text-lg'>American burger</p>
-											<p className='text-sm sm:text-medium'>
-												Doble medallón de carne, cheddar, salsa &quot;TBT&quot;,
-												tomate, lechuga, cebolla.
-											</p>
-										</div>
-
-										<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
-											<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
-												$9.500
-											</p>
-
-											<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
-												<button
-													className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
-													name='minusButton'
-													onClick={americanHandler}
-												>
-													-
-												</button>
-												<p
-													className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
-														americanQuantity && 'bg-[#491718] text-white'
-													}`}
-												>
-													{americanQuantity}
+										<div className='flex-wrap sm:flex justify-between w-full'>
+											<div className='flex-col content-center'>
+												<p className='font-semibold text-lg'>American burger</p>
+												<p className='text-sm sm:text-medium'>
+													Doble medallón de carne, cheddar, salsa
+													&quot;TBT&quot;, tomate, lechuga, cebolla.
 												</p>
-												<button
-													className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
-													name='plusButton'
-													onClick={americanHandler}
-												>
-													+
-												</button>
+											</div>
+
+											<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+												<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
+													$9.500
+												</p>
+
+												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
+													<button
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														name='minusButton'
+														onClick={americanHandler}
+													>
+														-
+													</button>
+													<p
+														className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
+															americanQuantity && 'bg-[#491718] text-white'
+														}`}
+													>
+														{americanQuantity}
+													</p>
+													<button
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														name='plusButton'
+														onClick={americanHandler}
+													>
+														+
+													</button>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
+									</motion.li>
 
-								<li className='flex items-center mt-4'>
-									<Image
-										src={cheese_burger}
-										className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-										alt='evolve'
-									/>
+									<motion.li
+										initial='hidden'
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ delay: 0.3, duration: 0.3 }}
+										variants={{
+											hidden: { opacity: 0, y: 15 },
+											visible: { opacity: 1, y: 0 },
+										}}
+										className='flex items-center mt-4'
+									>
+										<Image
+											src={cheese_burger}
+											className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
+											alt='evolve'
+										/>
 
-									<div className='flex-wrap sm:flex justify-between w-full'>
-										<div className='flex-col content-center'>
-											<p className='font-semibold text-lg'>Cheese burger</p>
-											<p className='text-sm sm:text-medium'>
-												Doble medallón de carne, cheddar, salsa &quot;TBT&quot;,
-												panceta, cebolla caramelizada.
-											</p>
-										</div>
-
-										<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
-											<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
-												$9.500
-											</p>
-
-											<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
-												<button
-													className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
-													name='minusButton'
-													onClick={cheeseHandler}
-												>
-													-
-												</button>
-												<p
-													className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
-														cheeseQuantity && 'bg-[#491718] text-white'
-													}`}
-												>
-													{cheeseQuantity}
+										<div className='flex-wrap sm:flex justify-between w-full'>
+											<div className='flex-col content-center'>
+												<p className='font-semibold text-lg'>Cheese burger</p>
+												<p className='text-sm sm:text-medium'>
+													Doble medallón de carne, cheddar, salsa
+													&quot;TBT&quot;, panceta, cebolla caramelizada.
 												</p>
-												<button
-													className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
-													name='plusButton'
-													onClick={cheeseHandler}
-												>
-													+
-												</button>
+											</div>
+
+											<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+												<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
+													$9.500
+												</p>
+
+												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
+													<button
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														name='minusButton'
+														onClick={cheeseHandler}
+													>
+														-
+													</button>
+													<p
+														className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
+															cheeseQuantity && 'bg-[#491718] text-white'
+														}`}
+													>
+														{cheeseQuantity}
+													</p>
+													<button
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														name='plusButton'
+														onClick={cheeseHandler}
+													>
+														+
+													</button>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-								<li className='flex items-center mt-4'>
-									<Image
-										src={cheese_burger}
-										className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-										alt='evolve'
-									/>
+									</motion.li>
 
-									<div className='flex-wrap sm:flex justify-between w-full'>
-										<div className='flex-col content-center'>
-											<p className='font-semibold text-lg'>Burger 4 quesos</p>
-											<p className='text-sm sm:text-medium'>
-												Doble medallón de carne, cheddar, roquefort, mozarella,
-												tybo.
-											</p>
-										</div>
+									<motion.li
+										initial='hidden'
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ delay: 0.4, duration: 0.3 }}
+										variants={{
+											hidden: { opacity: 0, y: 15 },
+											visible: { opacity: 1, y: 0 },
+										}}
+										className='flex items-center mt-4'
+									>
+										<Image
+											src={cheese_burger}
+											className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
+											alt='evolve'
+										/>
 
-										<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
-											<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
-												$9.500
-											</p>
-
-											<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
-												<button
-													className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
-													name='minusButton'
-													onClick={fourChesseHandler}
-												>
-													-
-												</button>
-												<p
-													className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
-														fourChesseQuantity && 'bg-[#491718] text-white'
-													}`}
-												>
-													{fourChesseQuantity}
+										<div className='flex-wrap sm:flex justify-between w-full'>
+											<div className='flex-col content-center'>
+												<p className='font-semibold text-lg'>Burger 4 quesos</p>
+												<p className='text-sm sm:text-medium'>
+													Doble medallón de carne, cheddar, roquefort,
+													mozarella, tybo.
 												</p>
-												<button
-													className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
-													name='plusButton'
-													onClick={fourChesseHandler}
-												>
-													+
-												</button>
+											</div>
+
+											<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+												<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
+													$9.500
+												</p>
+
+												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
+													<button
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														name='minusButton'
+														onClick={fourChesseHandler}
+													>
+														-
+													</button>
+													<p
+														className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
+															fourChesseQuantity && 'bg-[#491718] text-white'
+														}`}
+													>
+														{fourChesseQuantity}
+													</p>
+													<button
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														name='plusButton'
+														onClick={fourChesseHandler}
+													>
+														+
+													</button>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-								<li className='flex items-center mt-4'>
-									<Image
-										src={cheese_burger}
-										className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-										alt='evolve'
-									/>
+									</motion.li>
 
-									<div className='flex-wrap sm:flex justify-between w-full'>
-										<div className='flex-col content-center'>
-											<p className='font-semibold text-lg'>BBQ burger</p>
-											<p className='text-sm sm:text-medium'>
-												Doble medallón de carne, cheddar, cebolla caramelizada,
-												barbacoa.
-											</p>
-										</div>
+									<motion.li
+										initial='hidden'
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ delay: 0.5, duration: 0.3 }}
+										variants={{
+											hidden: { opacity: 0, y: 15 },
+											visible: { opacity: 1, y: 0 },
+										}}
+										className='flex items-center mt-4'
+									>
+										<Image
+											src={cheese_burger}
+											className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
+											alt='evolve'
+										/>
 
-										<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
-											<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
-												$9.500
-											</p>
-
-											<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
-												<button
-													className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
-													name='minusButton'
-													onClick={bbqHandler}
-												>
-													-
-												</button>
-												<p
-													className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
-														bbgQuantity && 'bg-[#491718] text-white'
-													}`}
-												>
-													{bbgQuantity}
+										<div className='flex-wrap sm:flex justify-between w-full'>
+											<div className='flex-col content-center'>
+												<p className='font-semibold text-lg'>BBQ burger</p>
+												<p className='text-sm sm:text-medium'>
+													Doble medallón de carne, cheddar, cebolla
+													caramelizada, barbacoa.
 												</p>
-												<button
-													className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
-													name='plusButton'
-													onClick={bbqHandler}
-												>
-													+
-												</button>
+											</div>
+
+											<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+												<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
+													$9.500
+												</p>
+
+												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
+													<button
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														name='minusButton'
+														onClick={bbqHandler}
+													>
+														-
+													</button>
+													<p
+														className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
+															bbgQuantity && 'bg-[#491718] text-white'
+														}`}
+													>
+														{bbgQuantity}
+													</p>
+													<button
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														name='plusButton'
+														onClick={bbqHandler}
+													>
+														+
+													</button>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-							</ul>
-						</section>
-					) : (
-						<section>
-							<h1 className='font-bold text-xl py-4'>BEBIDAS</h1>
+									</motion.li>
+								</ul>
+							</motion.section>
+						) : (
+							<motion.section
+								key='drinks'
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0 }}
+								className='relative -z-10'
+							>
+								<motion.h1
+									initial='hidden'
+									animate={{ opacity: 1, x: 0 }}
+									whileInView='visible'
+									transition={{ delay: 0.2, duration: 0.3 }}
+									variants={{
+										hidden: { opacity: 0, x: -100 },
+										visible: { opacity: 1, x: 0 },
+									}}
+									className='font-bold text-xl py-4'
+								>
+									BEBIDAS
+								</motion.h1>
 
-							<ul>
-								<li className='flex items-center'>
-									<Image
-										src={cocacola}
-										className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-										alt='cocacola'
-									/>
+								<ul>
+									<motion.li
+										initial='hidden'
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ delay: 0.2, duration: 0.3 }}
+										variants={{
+											hidden: { opacity: 0, y: 15 },
+											visible: { opacity: 1, y: 0 },
+										}}
+										className='flex items-center'
+									>
+										<Image
+											src={cocacola}
+											className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
+											alt='cocacola'
+										/>
 
-									<div className='flex-wrap sm:flex justify-between w-full'>
-										<div className='flex-col content-center'>
-											<p className='font-semibold text-lg'>Coca Cola</p>
-											<p className='text-sm sm:text-medium'>
-												Botella de 500ml.
-											</p>
-										</div>
-
-										<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
-											<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
-												$1.500
-											</p>
-
-											<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
-												<button
-													className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
-													name='minusButton'
-													onClick={cocacolaHandler}
-												>
-													-
-												</button>
-												<p
-													className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
-														cocacolaQuantity && 'bg-[#491718] text-white'
-													}`}
-												>
-													{cocacolaQuantity}
+										<div className='flex-wrap sm:flex justify-between w-full'>
+											<div className='flex-col content-center'>
+												<p className='font-semibold text-lg'>Coca Cola</p>
+												<p className='text-sm sm:text-medium'>
+													Botella de 500ml.
 												</p>
-												<button
-													className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
-													name='plusButton'
-													onClick={cocacolaHandler}
-												>
-													+
-												</button>
+											</div>
+
+											<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+												<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
+													$1.500
+												</p>
+
+												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
+													<button
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														name='minusButton'
+														onClick={cocacolaHandler}
+													>
+														-
+													</button>
+													<p
+														className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
+															cocacolaQuantity && 'bg-[#491718] text-white'
+														}`}
+													>
+														{cocacolaQuantity}
+													</p>
+													<button
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														name='plusButton'
+														onClick={cocacolaHandler}
+													>
+														+
+													</button>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
+									</motion.li>
 
-								<li className='flex items-center mt-4'>
-									<Image
-										src={schneider}
-										className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-										alt='schneider'
-									/>
-									<div className='flex-wrap sm:flex justify-between w-full'>
-										<div className='flex-col content-center'>
-											<p className='font-semibold text-lg'>Schneider</p>
-											<p className='text-sm sm:text-medium'>Lata de 473ml.</p>
-										</div>
+									<motion.li
+										initial='hidden'
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ delay: 0.3, duration: 0.3 }}
+										variants={{
+											hidden: { opacity: 0, y: 15 },
+											visible: { opacity: 1, y: 0 },
+										}}
+										className='flex items-center mt-4'
+									>
+										<Image
+											src={schneider}
+											className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
+											alt='schneider'
+										/>
+										<div className='flex-wrap sm:flex justify-between w-full'>
+											<div className='flex-col content-center'>
+												<p className='font-semibold text-lg'>Schneider</p>
+												<p className='text-sm sm:text-medium'>Lata de 473ml.</p>
+											</div>
 
-										<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
-											<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
-												$1.500
-											</p>
-
-											<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
-												<button
-													className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
-													name='minusButton'
-													onClick={schneiderHandler}
-												>
-													-
-												</button>
-												<p
-													className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
-														schneiderQuantity && 'bg-[#491718] text-white'
-													}`}
-												>
-													{schneiderQuantity}
+											<div className='w-full md:w-24 mt-2 md:mt-0 md:ml-5 flex justify-between md:justify-center md:block'>
+												<p className='flex justify-center items-center md:pb-2 font-semibold text-[#491718]'>
+													$1.500
 												</p>
-												<button
-													className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
-													name='plusButton'
-													onClick={schneiderHandler}
-												>
-													+
-												</button>
+
+												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
+													<button
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														name='minusButton'
+														onClick={schneiderHandler}
+													>
+														-
+													</button>
+													<p
+														className={`flex justify-center items-center border-r-2 border-[#491718] px-2 cursor-default select-none ${
+															schneiderQuantity && 'bg-[#491718] text-white'
+														}`}
+													>
+														{schneiderQuantity}
+													</p>
+													<button
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														name='plusButton'
+														onClick={schneiderHandler}
+													>
+														+
+													</button>
+												</div>
 											</div>
 										</div>
-									</div>
-								</li>
-							</ul>
-						</section>
-					)}
+									</motion.li>
+								</ul>
+							</motion.section>
+						)}
+					</AnimatePresence>
 				</div>
 			</main>
 

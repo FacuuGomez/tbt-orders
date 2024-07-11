@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+// import { Poppins } from 'next/font/google';
 import './globals.css';
 import { poppins } from '../../public/fonts/fonts';
 
-// const inter = Inter({ subsets: ['latin'] });
+// const poppins = Poppins({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: 'TBT - Pedidos',

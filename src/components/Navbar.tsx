@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import tbt_logo from '../../public/assets/tbt-logo.jpg';
+import { MotionTransition } from './TransitionComponent';
 
 interface NavbarProps {
 	totalArticles: number;
@@ -21,7 +22,13 @@ export const Navbar = ({
 }: NavbarProps) => {
 	return (
 		<div className='fixed max-w-screen w-full'>
-			<header className='flex justify-center py-4 bg-[#D2A772]'>
+			<MotionTransition
+				position='bottom'
+				delay={0.1}
+				opacity={1}
+				duration={0.2}
+				className='flex justify-center py-4 bg-[#D2A772] relative z-10'
+			>
 				<div className='flex-col mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
 					<div className='flex justify-between items-center'>
 						<Link href='/'>
@@ -32,7 +39,9 @@ export const Navbar = ({
 							/>
 						</Link>
 
-						<h2 className='font-bold text-xl sm:text-2xl'>THE BURGER TOWN</h2>
+						<h2 className='font-bold text-xl sm:text-2xl mr-9 sm:mr-12'>
+							THE BURGER TOWN
+						</h2>
 
 						<button className='flex relative' onClick={openModal}>
 							<FontAwesomeIcon
@@ -46,21 +55,27 @@ export const Navbar = ({
 						</button>
 					</div>
 				</div>
-			</header>
+			</MotionTransition>
 
-			<nav className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'>
+			<MotionTransition
+				position='bottom'
+				delay={0.3}
+				opacity={1}
+				duration={0.3}
+				className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'
+			>
 				<ul className='flex justify-center gap-8 max-w-7xl w-full'>
-					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
+					<li className='font-medium text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer'>
 						<button onClick={openBurgers}>Burgers</button>
 					</li>
-					<li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
+					<li className='font-medium text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer'>
 						<button onClick={openDrinks}>Bebidas</button>
 					</li>
 					{/* <li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
 						Dips
 					</li> */}
 				</ul>
-			</nav>
+			</MotionTransition>
 		</div>
 	);
 };

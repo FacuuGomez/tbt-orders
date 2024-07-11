@@ -6,10 +6,12 @@ import { faCircleXmark, faTrash } from '@fortawesome/free-solid-svg-icons';
 import american_burger from '../../public/assets/american-burger.jpg';
 import cheese_burger from '../../public/assets/cheese-burger.jpg';
 // import { createOrder } from '@/actions/orders-actions';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface CartProps {
 	order: Order;
+	modalIsOpen: boolean;
 	setOrder: React.Dispatch<React.SetStateAction<Order>>;
 	closeModal: () => void;
 }
@@ -56,7 +58,12 @@ interface Message {
 	orderNote: string;
 }
 
-export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
+export const Cart = ({
+	closeModal,
+	order,
+	setOrder,
+	modalIsOpen,
+}: CartProps) => {
 	const [message, setMessage] = useState<Message>({
 		order,
 		orderName: '',
@@ -161,31 +168,47 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 		formRef.current?.reset();
 	};
 
+	useEffect(() => {
+		console.log('mounted');
+	});
+
 	return (
 		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen'>
-			<div className='relative justify-center text-center bg-[#b89061] m-5 md:max-w-2xl w-full p-6 rounded-3xl'>
-				<div>
-					<button className='flex' onClick={closeModal}>
-						<FontAwesomeIcon
-							className='absolute top-6 right-6 w-8 h-8 hover:opacity-80 active:opacity-60 cursor-pointer'
-							icon={faCircleXmark}
-						/>
-					</button>
+			<AnimatePresence>
+				{modalIsOpen && (
+					<motion.div
+						initial={{ opacity: 0, scale: 0 }}
+						animate={{ opacity: 1, scale: 1 }}
+						transition={{
+							duration: 0.2,
+							delay: 0.1,
+							ease: [0, 0.71, 0.2, 1.01],
+						}}
+						exit={{ opacity: 0, scale: 0 }}
+						className='relative justify-center text-center bg-[#b89061] m-5 md:max-w-2xl w-full p-6 rounded-3xl z-50'
+					>
+						<div>
+							<button className='flex' onClick={closeModal}>
+								<FontAwesomeIcon
+									className='absolute top-6 right-6 w-8 h-8 hover:opacity-80 active:opacity-60 cursor-pointer'
+									icon={faCircleXmark}
+								/>
+							</button>
 
-					<h3 className='text-2xl font-bold pb-6'>PEDIDO</h3>
+							<h3 className='text-2xl font-bold pb-6'>PEDIDO</h3>
 
-					<div className='flex justify-center '>
-						<ul className='w-full pr-[6px] max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
-							{!order.totalArticles ? (
-								<li className='text-2xl'>No hay pedidos cargados.</li>
-							) : (
-								order.articles.map((article) => (
-									<li
-										className='flex justify-between items-center mb-2'
-										key={article.name}
-									>
-										<div className='flex items-center'>
-											{/* {article.name === 'American burger' ? (
+							<div className='flex justify-center '>
+								<ul className='w-full pr-[6px] max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
+									{!order.totalArticles ? (
+										<li className='text-2xl'>No hay pedidos cargados.</li>
+									) : (
+										order.articles.map((article) => (
+											<li
+												className='flex justify-between items-center mb-2'
+												key={article.name}
+											>
+												<div className='flex items-center'>
+													{/* {article.name === 'American burger' ? (
 												<Image
 													src={american_burger}
 													className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
@@ -199,99 +222,105 @@ export const Cart = ({ closeModal, order, setOrder }: CartProps) => {
 												/>
 											)} */}
 
-											<Image
-												src={`/assets/${article.image}`}
-												className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
-												alt='American burger'
-												width={90}
-												height={90}
-											/>
+													<Image
+														src={`/assets/${article.image}`}
+														className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
+														alt='American burger'
+														width={90}
+														height={90}
+													/>
 
-											<div>
-												<p className='font-semibold text-lg text-start'>
-													{article.name}
-												</p>
-												<p>
-													Cantidad: {article.quantity} x ${article.price}
-												</p>
-											</div>
-										</div>
+													<div>
+														<p className='font-semibold text-lg text-start'>
+															{article.name}
+														</p>
+														<p>
+															Cantidad: {article.quantity} x ${article.price}
+														</p>
+													</div>
+												</div>
 
-										<button className='flex' onClick={deleteOrder}>
-											<FontAwesomeIcon
-												className='h-6 hover:opacity-80 active:opacity-60 cursor-pointer'
-												icon={faTrash}
-											/>
-										</button>
-									</li>
-								))
-							)}
-						</ul>
-					</div>
+												<button className='flex' onClick={deleteOrder}>
+													<FontAwesomeIcon
+														className='h-6 hover:opacity-80 active:opacity-60 cursor-pointer'
+														icon={faTrash}
+													/>
+												</button>
+											</li>
+										))
+									)}
+								</ul>
+							</div>
 
-					<div className='my-2 font-medium text-[#491718]'>
-						<p>Subtotal: ${order.totalAmount}</p>
-					</div>
-					<hr className='border-2 border-[#491718] rounded-full mt-2' />
+							<div className='my-2 font-medium text-[#491718]'>
+								<p>Subtotal: ${order.totalAmount}</p>
+							</div>
+							<hr className='border-2 border-[#491718] rounded-full mt-2' />
 
-					<form className='flex-col my-4' onSubmit={handleSubmit} ref={formRef}>
-						<input
-							className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
-							type='text'
-							placeholder='Nombre'
-							name='orderName'
-							value={message.orderName}
-							onChange={handleMessageChange}
-						/>
+							<form
+								className='flex-col my-4'
+								onSubmit={handleSubmit}
+								ref={formRef}
+							>
+								<input
+									className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+									type='text'
+									placeholder='Nombre'
+									name='orderName'
+									value={message.orderName}
+									onChange={handleMessageChange}
+								/>
 
-						<select
-							className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
-							name='orderPayment'
-							value={message.orderPayment}
-							onChange={handleMessageChange}
-						>
-							<option className='text-black/60' value='Metodo'>
-								Método de pago
-							</option>
-							<option value='Efectivo'>Efectivo</option>
-							<option value='Tranferencia'>Transferencia</option>
-						</select>
+								<select
+									className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+									name='orderPayment'
+									value={message.orderPayment}
+									onChange={handleMessageChange}
+								>
+									<option className='text-black/60' value='Metodo'>
+										Método de pago
+									</option>
+									<option value='Efectivo'>Efectivo</option>
+									<option value='Tranferencia'>Transferencia</option>
+								</select>
 
-						<select
-							className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
-							name='orderDispatch'
-							value={message.orderDispatch}
-							onChange={handleMessageChange}
-						>
-							<option className='text-black/60' value='Envio/Retiro'>
-								Envio / Retiro
-							</option>
-							<option value='Envio'>Quiero que me lo envien</option>
-							<option value='Retiro'>Lo retiro yo mismo</option>
-						</select>
+								<select
+									className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+									name='orderDispatch'
+									value={message.orderDispatch}
+									onChange={handleMessageChange}
+								>
+									<option className='text-black/60' value='Envio/Retiro'>
+										Envio / Retiro
+									</option>
+									<option value='Envio'>Quiero que me lo envien</option>
+									<option value='Retiro'>Lo retiro yo mismo</option>
+								</select>
 
-						<textarea
-							className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
-							name='orderNote'
-							placeholder='¿ Alguna observación ?'
-							value={message.orderNote}
-							onChange={handleMessageChange}
-						></textarea>
+								<textarea
+									className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+									name='orderNote'
+									placeholder='¿ Alguna observación ?'
+									value={message.orderNote}
+									onChange={handleMessageChange}
+								></textarea>
 
-						<div className='flex justify-center font-bold text-2xl my-4'>
-							<p>Total:</p>
-							<p className='text-[#491718] ml-2'>${order.totalAmount}</p>
+								<div className='flex justify-center font-bold text-2xl my-4'>
+									<p>Total:</p>
+									<p className='text-[#491718] ml-2'>${order.totalAmount}</p>
+								</div>
+
+								<button
+									className='bg-[#491718] hover:opacity-80 active:opacity-60 text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
+									type='submit'
+								>
+									Enviar pedido
+								</button>
+							</form>
 						</div>
-
-						<button
-							className='bg-[#491718] hover:opacity-80 active:opacity-60 text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
-							type='submit'
-						>
-							Enviar pedido
-						</button>
-					</form>
-				</div>
-			</div>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	);
 };
