@@ -359,7 +359,7 @@ export const Cart = ({
 									placeholder='Nombre'
 									name='orderName'
 									value={message.orderName}
-									autocomplete='off'
+									autoComplete='off'
 									onChange={handleMessageChange}
 								/>
 
