@@ -16,13 +16,39 @@
 	}
 }
 
+@layer utilities {
+	.text-balance {
+		text-wrap: balance;
+	}
+}
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #491718de #b89061;
+}
+
+ul {
+	scrollbar-width: thin;
+	scrollbar-color: #491718 #d2a772;
+}
+
 body {
 	color: black;
 	background: #d2a772;
 }
 
-@layer utilities {
-	.text-balance {
-		text-wrap: balance;
-	}
+.gradient-top {
+	background: linear-gradient(
+		to bottom,
+		rgba(184, 144, 97, 1),
+		rgba(255, 0, 0, 0) 70%
+	);
+}
+
+.gradient-bottom {
+	background: linear-gradient(
+		to top,
+		rgba(184, 144, 97, 1),
+		rgba(0, 0, 255, 0) 70%
+	);
 }

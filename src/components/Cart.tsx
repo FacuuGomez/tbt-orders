@@ -168,10 +168,6 @@ export const Cart = ({
 		formRef.current?.reset();
 	};
 
-	useEffect(() => {
-		console.log('mounted');
-	});
-
 	return (
 		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen'>
 			<AnimatePresence>
@@ -185,7 +181,7 @@ export const Cart = ({
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						exit={{ opacity: 0, scale: 0 }}
-						className='relative justify-center text-center bg-[#b89061] m-5 md:max-w-2xl w-full p-6 rounded-3xl z-50'
+						className='relative justify-center text-center bg-[#b89061] m-5 md:max-w-2xl w-full p-6 rounded-3xl'
 					>
 						<div>
 							<button className='flex' onClick={closeModal}>
@@ -197,10 +193,18 @@ export const Cart = ({
 
 							<h3 className='text-2xl font-bold pb-6'>PEDIDO</h3>
 
-							<div className='flex justify-center '>
+							<div className='relative flex justify-center'>
+								{order.totalArticles ? (
+									<div className='absolute top-0 left-0 w-full h-10 mr-2 gradient-top'></div>
+								) : (
+									''
+								)}
+
 								<ul className='w-full pr-[6px] max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
 									{!order.totalArticles ? (
-										<li className='text-2xl'>No hay pedidos cargados.</li>
+										<li className='flex justify-center items-center text-2xl h-10'>
+											No hay pedidos cargados.
+										</li>
 									) : (
 										order.articles.map((article) => (
 											<li
@@ -208,20 +212,6 @@ export const Cart = ({
 												key={article.name}
 											>
 												<div className='flex items-center'>
-													{/* {article.name === 'American burger' ? (
-												<Image
-													src={american_burger}
-													className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
-													alt='American burger'
-												/>
-											) : (
-												<Image
-													src={cheese_burger}
-													className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
-													alt='Chesse burger'
-												/>
-											)} */}
-
 													<Image
 														src={`/assets/${article.image}`}
 														className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
@@ -250,6 +240,12 @@ export const Cart = ({
 										))
 									)}
 								</ul>
+
+								{order.totalArticles ? (
+									<div className='absolute bottom-0 left-0 w-full h-10 gradient-bottom'></div>
+								) : (
+									''
+								)}
 							</div>
 
 							<div className='my-2 font-medium text-[#491718]'>

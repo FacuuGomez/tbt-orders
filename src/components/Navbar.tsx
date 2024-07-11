@@ -26,7 +26,7 @@ export const Navbar = ({
 				position='bottom'
 				delay={0.1}
 				opacity={1}
-				duration={0.2}
+				duration={0.3}
 				className='flex justify-center py-4 bg-[#D2A772] relative z-10'
 			>
 				<div className='flex-col mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
@@ -61,7 +61,7 @@ export const Navbar = ({
 				position='bottom'
 				delay={0.3}
 				opacity={1}
-				duration={0.3}
+				duration={0.5}
 				className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'
 			>
 				<ul className='flex justify-center gap-8 max-w-7xl w-full'>

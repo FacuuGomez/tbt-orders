@@ -277,12 +277,11 @@ export default function Home() {
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
 								transition={{ duration: 0 }}
-								className='relative -z-10'
 							>
 								<motion.h1
 									initial='hidden'
 									animate={{ opacity: 1, x: 0 }}
-									transition={{ delay: 0.2, duration: 0.3 }}
+									transition={{ delay: 0.1, duration: 0.3 }}
 									variants={{
 										hidden: { opacity: 0, x: -100 },
 										visible: { opacity: 1, x: 0 },
@@ -467,7 +466,7 @@ export default function Home() {
 									<motion.li
 										initial='hidden'
 										animate={{ opacity: 1, y: 0 }}
-										transition={{ delay: 0.5, duration: 0.3 }}
+										transition={{ delay: 0.5, duration: 0.5 }}
 										variants={{
 											hidden: { opacity: 0, y: 15 },
 											visible: { opacity: 1, y: 0 },
@@ -529,12 +528,11 @@ export default function Home() {
 								animate={{ opacity: 1 }}
 								exit={{ opacity: 0 }}
 								transition={{ duration: 0 }}
-								className='relative -z-10'
 							>
 								<motion.h1
 									initial='hidden'
 									animate={{ opacity: 1, x: 0 }}
-									whileInView='visible'
+									// whileInView='visible'
 									transition={{ delay: 0.2, duration: 0.3 }}
 									variants={{
 										hidden: { opacity: 0, x: -100 },
