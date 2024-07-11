@@ -324,7 +324,7 @@ export default function Home() {
 
 												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
 													<button
-														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none transition'
 														name='minusButton'
 														onClick={americanHandler}
 													>
@@ -338,7 +338,7 @@ export default function Home() {
 														{americanQuantity}
 													</p>
 													<button
-														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none transition'
 														name='plusButton'
 														onClick={americanHandler}
 													>
@@ -381,7 +381,7 @@ export default function Home() {
 
 												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
 													<button
-														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none transition'
 														name='minusButton'
 														onClick={cheeseHandler}
 													>
@@ -395,7 +395,7 @@ export default function Home() {
 														{cheeseQuantity}
 													</p>
 													<button
-														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none transition'
 														name='plusButton'
 														onClick={cheeseHandler}
 													>
@@ -438,7 +438,7 @@ export default function Home() {
 
 												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
 													<button
-														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none transition'
 														name='minusButton'
 														onClick={fourChesseHandler}
 													>
@@ -452,7 +452,7 @@ export default function Home() {
 														{fourChesseQuantity}
 													</p>
 													<button
-														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none transition'
 														name='plusButton'
 														onClick={fourChesseHandler}
 													>
@@ -495,7 +495,7 @@ export default function Home() {
 
 												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
 													<button
-														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none transition'
 														name='minusButton'
 														onClick={bbqHandler}
 													>
@@ -509,7 +509,7 @@ export default function Home() {
 														{bbgQuantity}
 													</p>
 													<button
-														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none transition'
 														name='plusButton'
 														onClick={bbqHandler}
 													>
@@ -575,7 +575,7 @@ export default function Home() {
 
 												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
 													<button
-														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none transition'
 														name='minusButton'
 														onClick={cocacolaHandler}
 													>
@@ -589,7 +589,7 @@ export default function Home() {
 														{cocacolaQuantity}
 													</p>
 													<button
-														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none transition'
 														name='plusButton'
 														onClick={cocacolaHandler}
 													>
@@ -628,7 +628,7 @@ export default function Home() {
 
 												<div className='grid grid-cols-3 justify-center border-2 border-[#491718] rounded-full w-24'>
 													<button
-														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-r-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-l-xl cursor-pointer select-none transition'
 														name='minusButton'
 														onClick={schneiderHandler}
 													>
@@ -642,7 +642,7 @@ export default function Home() {
 														{schneiderQuantity}
 													</p>
 													<button
-														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none'
+														className='flex justify-center items-center border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-r-xl cursor-pointer select-none transition'
 														name='plusButton'
 														onClick={schneiderHandler}
 													>

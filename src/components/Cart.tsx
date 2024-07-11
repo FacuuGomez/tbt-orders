@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faTrash } from '@fortawesome/free-solid-svg-icons';
-import american_burger from '../../public/assets/american-burger.jpg';
-import cheese_burger from '../../public/assets/cheese-burger.jpg';
+// import american_burger from '../../public/assets/american-burger.jpg';
+// import cheese_burger from '../../public/assets/cheese-burger.jpg';
 // import { createOrder } from '@/actions/orders-actions';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
