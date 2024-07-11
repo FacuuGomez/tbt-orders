@@ -58,12 +58,25 @@ interface Message {
 	orderNote: string;
 }
 
+interface Error {
+	errorOrder: string;
+	errorName: string;
+	errorPayment: string;
+	errorDispatch: string;
+}
+
 export const Cart = ({
 	closeModal,
 	order,
 	setOrder,
 	modalIsOpen,
 }: CartProps) => {
+	const [error, setError] = useState<Error>({
+		errorOrder: '',
+		errorName: '',
+		errorPayment: '',
+		errorDispatch: '',
+	});
 	const [message, setMessage] = useState<Message>({
 		order,
 		orderName: '',
@@ -95,78 +108,149 @@ export const Cart = ({
 			order,
 			[target.name]: target.value,
 		});
+
+		setError((prev) => ({
+			...prev,
+			[target.name === 'orderName'
+				? 'errorName'
+				: target.name === 'orderPayment'
+				? 'errorPayment'
+				: 'errorDispatch']: '',
+		}));
 	};
+
+	// const handleSubmit: orderHandler = (event) => {
+	// 	event.preventDefault();
+
+	// 	console.log('message submit', message);
+
+	// 	if (!message.orderName) {
+	// 		setError({ ...error, errorName: 'Completar nombre.' });
+	// 	}
+	// 	if (!message.orderPayment) {
+	// 		setError({ ...error, errorPayment: 'Seleccionar medio de pago.' });
+	// 	}
+	// 	if (!message.orderDispatch) {
+	// 		setError({ ...error, errorDispatch: 'Seleccionar envio o retiro.' });
+	// 	}
+
+	// 	if (error) return;
+
+	// 	// if (
+	// 	// 	!message.orderDispatch ||
+	// 	// 	!message.orderPayment ||
+	// 	// 	!message.orderDispatch
+	// 	// ) {
+	// 	// 	setError('Completar formulario');
+	// 	// 	return;
+	// 	// }
+
+	// 	const phoneNumber = '541141786108';
+
+	// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+	// 	`\n*Nombre*: ${message.orderName}\n*Pago*: ${
+	// 		message.orderPayment
+	// 	}\n*Delivery*: ${
+	// 		message.orderDispatch
+	// 	}\n\n-------------------------------\nPEDIDO\n\n${order.articles
+	// 		.map((article) => {
+	// 			return `- ${article.name}: ${article.quantity} x $${
+	// 				article.price
+	// 			} = $${article.price * article.quantity}\n\n`;
+	// 		})
+	// 		.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
+	// 		order.totalDrinks
+	// 	}\n\n*TOTAL: $${order.totalAmount}*\n-------------------------------\n\n${
+	// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
+	// 	}`
+	// )}`;
+
+	// 	// const order = await createOrder(formData);
+
+	// 	window.open(whatsappLink, '_blank');
+
+	// 	formRef.current?.reset();
+	// };
 
 	const handleSubmit: orderHandler = (event) => {
 		event.preventDefault();
 
-		const phoneNumber = '541141786108';
-		// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-		// 	`\n*Pedido*: ${message.orderName}\n*Pago*: ${
-		// 		message.orderPayment
-		// 	}\n*Delivery*: ${
-		// 		message.orderDispatch
-		// 	}\n\n-------------------------------\nBURGERS\n\n- ${
-		// 		order.articles[0].name
-		// 	} burger: ${order.articles[0].quantity} x $${
-		// 		order.articles[0].price
-		// 	} = $${order.articles[0].price * order.articles[0].quantity}\n${
-		// 		order.articles.length > 1
-		// 			? `- ${order.articles[1].name} burger: ${
-		// 					order.articles[1].quantity
-		// 			  } x $${order.articles[1].price} = $${
-		// 					order.articles[1].price * order.articles[1].quantity
-		// 			  }\n`
-		// 			: ''
-		// 	}\nART.: ${order.totalBurgers}   TOTAL: $${
-		// 		order.totalAmount
-		// 	}\n-------------------------------\n\n${
-		// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
-		// 	}`
-		// )}`;
+		setError({
+			errorOrder: '',
+			errorName: '',
+			errorPayment: '',
+			errorDispatch: '',
+		});
 
-		// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-		// 	`\n*Pedido*: ${message.orderName}\n*Pago*: ${
-		// 		message.orderPayment
-		// 	}\n*Delivery*: ${
-		// 		message.orderDispatch
-		// 	}\n\n-------------------------------\nBURGERS\n\n${order.articles.map(
-		// 		(article) => {
-		// 			return `- ${article.name}: ${article.quantity} x $${
-		// 				article.price
-		// 			}= $${article.price * article.quantity}\n\n`;
-		// 		}
-		// 	)}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
-		// 		order.totalDrinks
-		// 	}\n\nTOTAL: $${order.totalAmount}\n-------------------------------\n\n${
-		// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
-		// 	}`
-		// )}`;
+		let formIsValid = true;
 
-		const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-			`\n*Nombre*: ${message.orderName}\n*Pago*: ${
-				message.orderPayment
-			}\n*Delivery*: ${
-				message.orderDispatch
-			}\n\n-------------------------------\nPEDIDO\n\n${order.articles
-				.map((article) => {
-					return `- ${article.name}: ${article.quantity} x $${
-						article.price
-					} = $${article.price * article.quantity}\n\n`;
-				})
-				.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
-				order.totalDrinks
-			}\n\n*TOTAL: $${order.totalAmount}*\n-------------------------------\n\n${
-				message.orderNote ? `*Observación*: ${message.orderNote}` : ''
-			}`
-		)}`;
+		if (!order.totalArticles) {
+			setError((prev) => ({
+				...prev,
+				errorOrder: '¡ No hay articulos cargados !',
+			}));
+			formIsValid = false;
+		}
 
-		// const order = await createOrder(formData);
+		if (!message.orderName) {
+			setError((prev) => ({
+				...prev,
+				errorName: 'Completa el nombre.',
+			}));
+			formIsValid = false;
+		}
 
-		window.open(whatsappLink, '_blank');
+		if (!message.orderPayment || message.orderPayment === 'Método de pago') {
+			setError((prev) => ({
+				...prev,
+				errorPayment: 'Selecciona un método de pago válido.',
+			}));
+			formIsValid = false;
+		}
 
-		formRef.current?.reset();
+		if (!message.orderDispatch || message.orderDispatch === 'Envio/Retiro') {
+			setError((prev) => ({
+				...prev,
+				errorDispatch: 'Selecciona una opción de envío o retiro.',
+			}));
+			formIsValid = false;
+		}
+
+		if (formIsValid) {
+			const phoneNumber = '541141786108';
+			const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+				`\n*Nombre*: ${message.orderName}\n*Pago*: ${
+					message.orderPayment
+				}\n*Delivery*: ${
+					message.orderDispatch
+				}\n\n-------------------------------\nPEDIDO\n\n${order.articles
+					.map((article) => {
+						return `- ${article.name}: ${article.quantity} x $${
+							article.price
+						} = $${article.price * article.quantity}\n\n`;
+					})
+					.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
+					order.totalDrinks
+				}\n\n*TOTAL: $${
+					order.totalAmount
+				}*\n-------------------------------\n\n${
+					message.orderNote ? `*Observación*: ${message.orderNote}` : ''
+				}`
+			)}`;
+
+			window.open(whatsappLink, '_blank');
+			formRef.current?.reset();
+		}
 	};
+
+	useEffect(() => {
+		if (order.totalArticles > 0) {
+			setError((prev) => ({
+				...prev,
+				errorOrder: '',
+			}));
+		}
+	}, [order]);
 
 	return (
 		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen'>
@@ -194,16 +278,16 @@ export const Cart = ({
 							<h3 className='text-2xl font-bold pb-6'>PEDIDO</h3>
 
 							<div className='relative flex justify-center'>
-								{order.totalArticles ? (
+								{/* {order.totalArticles > 1 ? (
 									<div className='absolute top-0 left-0 w-full h-10 mr-2 gradient-top'></div>
 								) : (
 									''
-								)}
+								)} */}
 
 								<ul className='w-full pr-[6px] max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
 									{!order.totalArticles ? (
 										<li className='flex justify-center items-center text-2xl h-10'>
-											No hay pedidos cargados.
+											No hay articulos cargados.
 										</li>
 									) : (
 										order.articles.map((article) => (
@@ -241,23 +325,34 @@ export const Cart = ({
 									)}
 								</ul>
 
-								{order.totalArticles ? (
+								{/* {order.totalArticles > 1 ? (
 									<div className='absolute bottom-0 left-0 w-full h-10 gradient-bottom'></div>
 								) : (
 									''
-								)}
+								)} */}
 							</div>
 
 							<div className='my-2 font-medium text-[#491718]'>
 								<p>Subtotal: ${order.totalAmount}</p>
 							</div>
-							<hr className='border-2 border-[#491718] rounded-full mt-2' />
 
-							<form
-								className='flex-col my-4'
-								onSubmit={handleSubmit}
-								ref={formRef}
-							>
+							<hr className='border-2 border-[#491718] rounded-full my-2' />
+
+							{error.errorOrder && (
+								<motion.p
+									initial={{ opacity: 0, y: -15 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{
+										duration: 0.3,
+										delay: 0,
+									}}
+									className='ml-2 mb-2 text-red-600 font-medium text-sm'
+								>
+									{error.errorOrder}
+								</motion.p>
+							)}
+
+							<form onSubmit={handleSubmit} ref={formRef}>
 								<input
 									className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
 									type='text'
@@ -267,18 +362,46 @@ export const Cart = ({
 									onChange={handleMessageChange}
 								/>
 
+								{error.errorName && (
+									<motion.p
+										initial={{ opacity: 0, y: -15 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{
+											duration: 0.3,
+											delay: 0,
+										}}
+										className='flex ml-2 mb-2 text-red-600 font-medium text-sm'
+									>
+										{error.errorName}
+									</motion.p>
+								)}
+
 								<select
 									className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
 									name='orderPayment'
 									value={message.orderPayment}
 									onChange={handleMessageChange}
 								>
-									<option className='text-black/60' value='Metodo'>
+									<option className='text-black/60' value='Método de pago'>
 										Método de pago
 									</option>
 									<option value='Efectivo'>Efectivo</option>
 									<option value='Tranferencia'>Transferencia</option>
 								</select>
+
+								{error.errorPayment && (
+									<motion.p
+										initial={{ opacity: 0, y: -15 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{
+											duration: 0.3,
+											delay: 0,
+										}}
+										className='flex ml-2 mb-2 text-red-600 font-medium text-sm'
+									>
+										{error.errorPayment}
+									</motion.p>
+								)}
 
 								<select
 									className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
@@ -292,6 +415,20 @@ export const Cart = ({
 									<option value='Envio'>Quiero que me lo envien</option>
 									<option value='Retiro'>Lo retiro yo mismo</option>
 								</select>
+
+								{error.errorDispatch && (
+									<motion.p
+										initial={{ opacity: 0, y: -15 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{
+											duration: 0.3,
+											delay: 0,
+										}}
+										className='flex ml-2 mb-2 text-red-600 font-medium text-sm'
+									>
+										{error.errorDispatch}
+									</motion.p>
+								)}
 
 								<textarea
 									className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
@@ -307,7 +444,7 @@ export const Cart = ({
 								</div>
 
 								<button
-									className='bg-[#491718] hover:opacity-80 active:opacity-60 text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
+									className='bg-[#491718] active:opacity-60 sm:hover:opacity-80 text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
 									type='submit'
 								>
 									Enviar pedido
