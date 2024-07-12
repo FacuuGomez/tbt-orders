@@ -79,6 +79,13 @@ export default function Home() {
 			setAmericanQuantity(americanQuantity - 1);
 	};
 
+	// const americanHandler: QuantityHandler = (event) => {
+	// 	if (event.currentTarget.name === 'plusButton')
+	// 		setAmericanQuantity((prev) => prev + 1);
+	// 	if (event.currentTarget.name === 'minusButton' && americanQuantity !== 0)
+	// 		setAmericanQuantity((prev) => prev - 1);
+	// };
+
 	const cheeseHandler: QuantityHandler = (event) => {
 		if (event.currentTarget.name === 'plusButton')
 			setCheeseQuantity(cheeseQuantity + 1);
@@ -160,21 +167,6 @@ export default function Home() {
 
 			const updatedArticles: Article[] = [];
 
-			// if (americanQuantity > 0) {
-			// 	const americanBurger = articlesData.burgers.map((burger) => {
-			// 		return (
-			// 			burger.name === 'American burger' && {
-			// 				...burger,
-			// 				quantity: americanQuantity,
-			// 			}
-			// 		);
-			// 	});
-
-			// 	console.log('am', americanBurger);
-
-			// 	updatedArticles.push(americanBurger);
-			// }
-
 			if (americanBurger.quantity > 0) {
 				updatedArticles.push(americanBurger);
 			}
@@ -230,24 +222,8 @@ export default function Home() {
 	]);
 
 	// useEffect(() => {
-	// 	console.log(articlesData);
-	// });
-
-	// ---
-
-	// const americanHandler: QuantityHandler = (event) => {
-	// 	if (event.currentTarget.name === 'plusButton')
-	// 		setAmericanQuantity((prev) => prev + 1);
-	// 	if (event.currentTarget.name === 'minusButton' && americanQuantity !== 0)
-	// 		setAmericanQuantity((prev) => prev - 1);
-	// };
-
-	// const cheeseHandler: QuantityHandler = (event) => {
-	// 	if (event.currentTarget.name === 'plusButton')
-	// 		setCheeseQuantity((prev) => prev + 1);
-	// 	if (event.currentTarget.name === 'minusButton' && cheeseQuantity !== 0)
-	// 		setCheeseQuantity((prev) => prev - 1);
-	// };
+	// 	console.log('order', order);
+	// }, [order]);
 
 	return (
 		<div className='min-h-screen w-full flex-col'>

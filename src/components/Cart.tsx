@@ -9,6 +9,8 @@ import { faCircleXmark, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
+const deliveryValue = 2000;
+
 interface CartProps {
 	order: Order;
 	modalIsOpen: boolean;
@@ -84,17 +86,19 @@ export const Cart = ({
 		orderDispatch: '',
 		orderNote: '',
 	});
+	const [delivery, setDelivery] = useState(false);
 
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const deleteOrder: deleteOrderHandler = (event) => {
-		// console.log('cart', order);
-		// console.log('cart', event.currentTarget.name);
-		// const addItem = () => {
-		// setOrder((prevOrder) => ({
-		//   ...prevOrder,
-		//   items: [...prevOrder.items, 'New Item'],
-		// }));
+		const newOrder = order.articles.filter(
+			(article) => article.name !== event.currentTarget.name
+		);
+
+		// setOrder({
+		// 	...order,
+		// 	articles: newOrder,
+		// });
 	};
 
 	const handleMessageChange: messageOrderHandler = (event) => {
@@ -102,6 +106,10 @@ export const Cart = ({
 			| HTMLInputElement
 			| HTMLSelectElement
 			| HTMLTextAreaElement;
+
+		if (target.value === 'Envio/Retiro') setDelivery(false);
+		if (target.value === 'Retiro') setDelivery(false);
+		if (target.value === 'Envio') setDelivery(true);
 
 		setMessage({
 			...message,
@@ -118,59 +126,6 @@ export const Cart = ({
 				: 'errorDispatch']: '',
 		}));
 	};
-
-	// const handleSubmit: orderHandler = (event) => {
-	// 	event.preventDefault();
-
-	// 	console.log('message submit', message);
-
-	// 	if (!message.orderName) {
-	// 		setError({ ...error, errorName: 'Completar nombre.' });
-	// 	}
-	// 	if (!message.orderPayment) {
-	// 		setError({ ...error, errorPayment: 'Seleccionar medio de pago.' });
-	// 	}
-	// 	if (!message.orderDispatch) {
-	// 		setError({ ...error, errorDispatch: 'Seleccionar envio o retiro.' });
-	// 	}
-
-	// 	if (error) return;
-
-	// 	// if (
-	// 	// 	!message.orderDispatch ||
-	// 	// 	!message.orderPayment ||
-	// 	// 	!message.orderDispatch
-	// 	// ) {
-	// 	// 	setError('Completar formulario');
-	// 	// 	return;
-	// 	// }
-
-	// 	const phoneNumber = '541141786108';
-
-	// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-	// 	`\n*Nombre*: ${message.orderName}\n*Pago*: ${
-	// 		message.orderPayment
-	// 	}\n*Delivery*: ${
-	// 		message.orderDispatch
-	// 	}\n\n-------------------------------\nPEDIDO\n\n${order.articles
-	// 		.map((article) => {
-	// 			return `- ${article.name}: ${article.quantity} x $${
-	// 				article.price
-	// 			} = $${article.price * article.quantity}\n\n`;
-	// 		})
-	// 		.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
-	// 		order.totalDrinks
-	// 	}\n\n*TOTAL: $${order.totalAmount}*\n-------------------------------\n\n${
-	// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
-	// 	}`
-	// )}`;
-
-	// 	// const order = await createOrder(formData);
-
-	// 	window.open(whatsappLink, '_blank');
-
-	// 	formRef.current?.reset();
-	// };
 
 	const handleSubmit: orderHandler = (event) => {
 		event.preventDefault();
@@ -218,24 +173,45 @@ export const Cart = ({
 
 		if (formIsValid) {
 			const phoneNumber = '541141786108';
+			// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+			// 	`\n*Nombre*: ${message.orderName}\n*Pago*: ${
+			// 		message.orderPayment
+			// 	}\n*Delivery*: ${
+			// 		message.orderDispatch
+			// 	}\n\n-------------------------------\nPEDIDO\n\n${order.articles
+			// 		.map((article) => {
+			// 			return `- ${article.name}: ${article.quantity} x $${
+			// 				article.price
+			// 			} = $${article.price * article.quantity}\n\n`;
+			// 		})
+			// 		.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
+			// 		order.totalDrinks
+			// 	}\n\n*TOTAL: $${
+			// 		order.totalAmount
+			// 	}*\n-------------------------------\n\n${
+			// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
+			// 	}`
+			// )}`;
 			const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-				`\n*Nombre*: ${message.orderName}\n*Pago*: ${
+				`\n*Nombre:* ${message.orderName}\n*Pago:* ${
 					message.orderPayment
-				}\n*Delivery*: ${
-					message.orderDispatch
-				}\n\n-------------------------------\nPEDIDO\n\n${order.articles
+				}\n*Delivery:* ${delivery ? 'Si' : 'No'}\n${
+					message.orderNote && `*Observación:* ${message.orderNote}\n`
+				}\n-------------------------------\n*PEDIDO*\n\n${order.articles
 					.map((article) => {
 						return `- ${article.name}: ${article.quantity} x $${
 							article.price
-						} = $${article.price * article.quantity}\n\n`;
+						} = $${article.price * article.quantity}\n`;
 					})
-					.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
-					order.totalDrinks
-				}\n\n*TOTAL: $${
+					.join('')}${
+					delivery ? `\n*Envio:* $${deliveryValue}\n` : '\n'
+				}*Subtotal:* $${
 					order.totalAmount
-				}*\n-------------------------------\n\n${
-					message.orderNote ? `*Observación*: ${message.orderNote}` : ''
-				}`
+				}\n-------------------------------\nCANT. BURGERS: ${
+					order.totalBurgers
+				}\nCANT. BEBIDAS: ${order.totalDrinks}\n\n*TOTAL: $${
+					delivery ? order.totalAmount + deliveryValue : order.totalAmount
+				}*\n-------------------------------`
 			)}`;
 
 			window.open(whatsappLink, '_blank');
@@ -284,21 +260,21 @@ export const Cart = ({
 									''
 								)} */}
 
-								<ul className='w-full pr-[6px] max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
+								<ul className='w-full max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
 									{!order.totalArticles ? (
-										<li className='flex justify-center items-center text-2xl h-10'>
+										<li className='flex justify-center items-center text-2xl h-10 mb-4'>
 											No hay articulos cargados.
 										</li>
 									) : (
 										order.articles.map((article) => (
 											<li
-												className='flex justify-between items-center mb-2'
+												className='flex justify-between items-center mb-2 mr-[6px]'
 												key={article.name}
 											>
 												<div className='flex items-center'>
 													<Image
 														src={`/assets/${article.image}`}
-														className='w-24 sm:w-26 mr-4 cursor-pointer rounded-2xl'
+														className='w-20 sm:w-28 mr-4 cursor-pointer rounded-2xl'
 														alt='American burger'
 														width={90}
 														height={90}
@@ -308,18 +284,25 @@ export const Cart = ({
 														<p className='font-semibold text-lg text-start'>
 															{article.name}
 														</p>
-														<p>
-															Cantidad: {article.quantity} x ${article.price}
+														<p className='flex justify-start'>
+															Cant.: {article.quantity} x ${article.price}
 														</p>
 													</div>
 												</div>
 
-												<button className='flex' onClick={deleteOrder}>
+												<p className='flex justify-center items-center md:pb-2 font-medium text-[#491718]'>
+													$9.500
+												</p>
+												{/* <button
+													className='flex'
+													name={article.name}
+													onClick={deleteOrder}
+												>
 													<FontAwesomeIcon
 														className='h-6 hover:opacity-80 active:opacity-60 cursor-pointer'
 														icon={faTrash}
 													/>
-												</button>
+												</button> */}
 											</li>
 										))
 									)}
@@ -332,11 +315,28 @@ export const Cart = ({
 								)} */}
 							</div>
 
-							<div className='my-2 font-medium text-[#491718]'>
-								<p>Subtotal: ${order.totalAmount}</p>
+							{delivery && (
+								<motion.div
+									initial={{ opacity: 0, y: 10 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, y: 10 }}
+									transition={{
+										duration: 0.3,
+										delay: 0,
+									}}
+									className='flex justify-between font-bold text-[#491718] pt-2'
+								>
+									<p>Envio:</p>
+									<p>${deliveryValue}</p>
+								</motion.div>
+							)}
+
+							<div className='flex justify-between font-bold text-[#491718] mt-2'>
+								<p>Subtotal:</p>
+								<p>${order.totalAmount}</p>
 							</div>
 
-							<hr className='border-2 border-[#491718] rounded-full my-2' />
+							<hr className='border-2 border-[#491718] rounded-full my-4' />
 
 							{error.errorOrder && (
 								<motion.p
@@ -414,6 +414,7 @@ export const Cart = ({
 										Envio / Retiro
 									</option>
 									<option value='Envio'>Quiero que me lo envien</option>
+
 									<option value='Retiro'>Lo retiro yo mismo</option>
 								</select>
 
@@ -441,7 +442,12 @@ export const Cart = ({
 
 								<div className='flex justify-center font-bold text-2xl my-4'>
 									<p>Total:</p>
-									<p className='text-[#491718] ml-2'>${order.totalAmount}</p>
+									<p className='text-[#491718] ml-2'>
+										$
+										{delivery
+											? order.totalAmount + deliveryValue
+											: order.totalAmount}
+									</p>
 								</div>
 
 								<button
