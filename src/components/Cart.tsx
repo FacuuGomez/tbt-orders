@@ -291,7 +291,7 @@ export const Cart = ({
 												</div>
 
 												<p className='flex justify-center items-center md:pb-2 font-medium text-[#491718]'>
-													$9.500
+													${article.quantity * article.price}
 												</p>
 												{/* <button
 													className='flex'
