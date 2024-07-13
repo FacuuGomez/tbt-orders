@@ -29,7 +29,7 @@ export const Footer = () => {
 
 								<p className='flex justify-center font-medium text-black/80'>
 									<FontAwesomeIcon className='h-6 pr-2' icon={faClock} />
-									Jueves a Domingos de 20:00HS a 10:30HS
+									Jueves a Domingos de 20:00HS a 22:30HS
 								</p>
 							</div>
 
@@ -52,7 +52,7 @@ export const Footer = () => {
 							</a>
 							<a
 								className='inline-flex items-center text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer font-semibold'
-								href='https://www.instagram.com/the.burger.town/'
+								href='https://api.whatsapp.com/send/?phone=542302305833'
 								target='_blank'
 							>
 								<FontAwesomeIcon className='h-6 mr-2' icon={faWhatsapp} />
@@ -64,16 +64,18 @@ export const Footer = () => {
 					<div className='flex-col justify-center'>
 						<hr className='border-2 border-[#491718] w-full rounded-full' />
 
-						<div className='max-w-7xl w-full flex justify-between items-center py-2 '>
-							<p className='text-sm text-black/80'>© 2024 Geekhound, S.A.S.</p>
+						<div className='max-w-7xl w-full flex justify-center items-center py-2 '>
+							<p className='text-sm text-black/80'>
+								© 2024 The Burger Town, Ind.
+							</p>
 
-							<ul className='flex items-center'>
-								{/* <li>
+							{/* <ul className='flex items-center'>
+								<li>
 									<FontAwesomeIcon
 										className='h-6 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 										icon={faGlobe}
 									/>
-								</li> */}
+								</li>
 								<li>
 									<a
 										href='https://www.instagram.com/geekhound/'
@@ -85,13 +87,13 @@ export const Footer = () => {
 										/>
 									</a>
 								</li>
-								{/* <li>
+								<li>
 									<FontAwesomeIcon
 										className='h-6 text-black/80 hover:text-black/100 active:text-black/80 cursor-pointer'
 										icon={faXTwitter}
 									/>
-								</li> */}
-							</ul>
+								</li>
+							</ul> */}
 						</div>
 					</div>
 				</div>
