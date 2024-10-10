@@ -184,8 +184,6 @@ export const Cart = ({
 	};
 
 	useEffect(() => {
-		console.log('order', order);
-
 		if (order.totalArticles > 0) {
 			setError((prev) => ({
 				...prev,

@@ -36,10 +36,6 @@ export default function BurgersPage({ initialProducts }: Props) {
 		fetchNewProducts();
 	}, []);
 
-	useEffect(() => {
-		console.log('burgers', burgers);
-	}, []);
-
 	const burgers =
 		products && products.filter((product) => product.product === 'burger');
 

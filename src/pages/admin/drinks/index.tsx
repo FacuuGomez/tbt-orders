@@ -25,10 +25,6 @@ export default function BurgersPage({ products }: Props) {
 	const [modalIsOpen, setModalIsOpen] = useState<Product>(inititalState);
 	const router = useRouter();
 
-	useEffect(() => {
-		console.log(modalIsOpen);
-	}, [modalIsOpen]);
-
 	const drinks =
 		products && products.filter((product) => product.product === 'drink');
 

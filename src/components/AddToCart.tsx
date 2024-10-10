@@ -76,14 +76,6 @@ export default function AddToCart({
 			if (modalIsOpen?.product === 'burger')
 				setTotalBurgers(totalBurgers + articleQuantity.quantity);
 
-			// const article: Article = {
-			// 	name: modalIsOpen?.name,
-			// 	price: modalIsOpen?.price,
-			// 	size: articleQuantity.size,
-			// 	quantity: articleQuantity.quantity,
-			// 	product: modalIsOpen?.product,
-			// };
-
 			setArticleList([
 				...articleList,
 				{
@@ -120,11 +112,6 @@ export default function AddToCart({
 			});
 		}
 	}, [articleList]);
-
-	useEffect(() => {
-		console.log('order', order);
-		console.log('modalIsOpen', modalIsOpen);
-	}, [order, modalIsOpen]);
 
 	useEffect(() => {
 		setArticleQuantity({
