@@ -9,14 +9,9 @@ import { faCircleXmark, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-const deliveryValue = 2000;
+import { Order, Message, Error } from '@/interfaces';
 
-interface CartProps {
-	order: Order;
-	modalIsOpen: boolean;
-	setOrder: React.Dispatch<React.SetStateAction<Order>>;
-	closeModal: () => void;
-}
+const deliveryValue = 2000;
 
 type deleteOrderHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -29,42 +24,11 @@ type messageOrderHandler = (
 		| React.ChangeEvent<HTMLTextAreaElement>
 ) => void;
 
-type ArticleName =
-	| 'American burger'
-	| 'Cheese burger'
-	| 'Burger 4 quesos'
-	| 'BBQ burger'
-	| 'Coca Cola'
-	| 'Schneider';
-
-interface Article {
-	name: ArticleName;
-	price: number;
-	quantity: number;
-	image: string;
-}
-
-interface Order {
-	articles: Article[];
-	totalBurgers: number;
-	totalDrinks: number;
-	totalArticles: number;
-	totalAmount: number;
-}
-
-interface Message {
+interface CartProps {
 	order: Order;
-	orderName: string;
-	orderPayment: string;
-	orderDispatch: string;
-	orderNote: string;
-}
-
-interface Error {
-	errorOrder: string;
-	errorName: string;
-	errorPayment: string;
-	errorDispatch: string;
+	modalIsOpen: boolean;
+	setOrder: React.Dispatch<React.SetStateAction<Order>>;
+	closeModal: () => void;
 }
 
 export const Cart = ({
@@ -220,6 +184,8 @@ export const Cart = ({
 	};
 
 	useEffect(() => {
+		console.log('order', order);
+
 		if (order.totalArticles > 0) {
 			setError((prev) => ({
 				...prev,
@@ -236,22 +202,22 @@ export const Cart = ({
 						initial={{ opacity: 0, scale: 0 }}
 						animate={{ opacity: 1, scale: 1 }}
 						transition={{
-							duration: 0.2,
+							duration: 0.1,
 							delay: 0.1,
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						exit={{ opacity: 0, scale: 0 }}
-						className='relative justify-center text-center bg-[#b89061] m-5 md:max-w-2xl w-full p-6 rounded-3xl'
+						className='relative justify-center text-center bg-[#d2a772] m-5 md:max-w-2xl w-full p-6 rounded-3xl'
 					>
 						<div>
 							<button className='flex' onClick={closeModal}>
 								<FontAwesomeIcon
-									className='absolute top-6 right-6 w-8 h-8 hover:opacity-80 active:opacity-60 cursor-pointer'
+									className='absolute top-6 right-6 w-8 h-8 hover:opacity-80 active:text-[#491718] cursor-pointer'
 									icon={faCircleXmark}
 								/>
 							</button>
 
-							<h3 className='text-2xl font-bold pb-6'>PEDIDO</h3>
+							<h3 className='text-3xl font-bold pb-6'>PEDIDO</h3>
 
 							<div className='relative flex justify-center'>
 								{/* {order.totalArticles > 1 ? (
@@ -262,7 +228,7 @@ export const Cart = ({
 
 								<ul className='w-full max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
 									{!order.totalArticles ? (
-										<li className='flex justify-center items-center text-2xl h-10 mb-4'>
+										<li className='flex justify-center items-center text-xl h-10 mb-4 opacity-60'>
 											No hay articulos cargados.
 										</li>
 									) : (
@@ -354,7 +320,7 @@ export const Cart = ({
 
 							<form onSubmit={handleSubmit} ref={formRef}>
 								<input
-									className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+									className='p-2 w-full rounded-xl bg-black bg-opacity-5 placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
 									type='text'
 									placeholder='Nombre'
 									name='orderName'
@@ -378,7 +344,7 @@ export const Cart = ({
 								)}
 
 								<select
-									className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+									className='p-2 w-full rounded-xl text-black/60 bg-black bg-opacity-5 mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
 									name='orderPayment'
 									value={message.orderPayment}
 									onChange={handleMessageChange}
@@ -386,8 +352,12 @@ export const Cart = ({
 									<option className='text-black/60' value='Método de pago'>
 										Método de pago
 									</option>
-									<option value='Efectivo'>Efectivo</option>
-									<option value='Tranferencia'>Transferencia</option>
+									<option className='text-black' value='Efectivo'>
+										Efectivo
+									</option>
+									<option className='text-black' value='Tranferencia'>
+										Transferencia
+									</option>
 								</select>
 
 								{error.errorPayment && (
@@ -405,7 +375,7 @@ export const Cart = ({
 								)}
 
 								<select
-									className='p-2 w-full rounded-xl bg-[#d2a772] mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
+									className='p-2 w-full rounded-xl bg-black text-black/60 bg-opacity-5 mb-2 border-2 border-[#d2a772] focus:border-[#491718]'
 									name='orderDispatch'
 									value={message.orderDispatch}
 									onChange={handleMessageChange}
@@ -413,9 +383,13 @@ export const Cart = ({
 									<option className='text-black/60' value='Envio/Retiro'>
 										Envio / Retiro
 									</option>
-									<option value='Envio'>Quiero que me lo envien</option>
+									<option className='text-black' value='Envio'>
+										Quiero que me lo envien
+									</option>
 
-									<option value='Retiro'>Lo retiro yo mismo</option>
+									<option className='text-black' value='Retiro'>
+										Lo retiro yo mismo
+									</option>
 								</select>
 
 								{error.errorDispatch && (
@@ -433,7 +407,7 @@ export const Cart = ({
 								)}
 
 								<textarea
-									className='p-2 w-full rounded-xl bg-[#d2a772] placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+									className='p-2 w-full rounded-xl bg-black bg-opacity-5 placeholder:text-black/60 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
 									name='orderNote'
 									placeholder='¿ Alguna observación ?'
 									value={message.orderNote}

@@ -39,13 +39,13 @@ export const Navbar = ({
 							/>
 						</Link>
 
-						<h2 className='font-bold text-xl sm:text-2xl mr-9 sm:mr-12'>
+						<h2 className='font-bold text-xl sm:text-3xl mr-9 sm:mr-12'>
 							THE BURGER TOWN
 						</h2>
 
 						<button className='flex relative' onClick={openModal}>
 							<FontAwesomeIcon
-								className='h-6  hover:opacity-80 active:opacity-60 cursor-pointer'
+								className='h-6  hover:opacity-80 active:text-[#491718] cursor-pointer'
 								icon={faCartShopping}
 							/>
 
@@ -65,15 +65,12 @@ export const Navbar = ({
 				className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'
 			>
 				<ul className='flex justify-center gap-8 max-w-7xl w-full'>
-					<li className='font-medium text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer'>
+					<li className='font-semibold text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer transition'>
 						<button onClick={openBurgers}>Burgers</button>
 					</li>
-					<li className='font-medium text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer'>
+					<li className='font-semibold text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer transition'>
 						<button onClick={openDrinks}>Bebidas</button>
 					</li>
-					{/* <li className='font-medium text-lg hover:opacity-80 active:opacity-60 cursor-pointer'>
-						Dips
-					</li> */}
 				</ul>
 			</MotionTransition>
 		</div>

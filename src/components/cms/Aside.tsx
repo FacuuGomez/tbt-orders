@@ -5,103 +5,64 @@ import {
 	faReceipt,
 	faBurger,
 	faBeerMugEmpty,
+	faCirclePlus,
 } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-type ComponentViewHandler = (
-	event: React.MouseEvent<HTMLButtonElement>
-) => void;
-
-interface ComponentView {
-	orders: boolean;
-	burgers: boolean;
-	drinks: boolean;
-	createArticle: boolean;
-}
-
-interface AsideProps {
-	componentView: object;
-	setComponentView: React.Dispatch<React.SetStateAction<ComponentView>>;
-}
-
-function Aside({ componentView, setComponentView }: AsideProps) {
-	const handlerComponentView: ComponentViewHandler = (event) => {
-		const name = event.currentTarget.name as keyof ComponentView;
-
-		const newComponentView: ComponentView = Object.keys(componentView).reduce(
-			(acc, key) => {
-				acc[key as keyof ComponentView] = false;
-				return acc;
-			},
-			{} as ComponentView
-		);
-
-		newComponentView[name] = true;
-
-		setComponentView(newComponentView);
-	};
+function Aside() {
+	const router = useRouter();
 
 	return (
-		<aside className='bg-black bg-opacity-15 h-full p-4 rounded-xl w-72'>
-			<div className='bg-[#d2a772] shadow-md w-full  p-4 rounded-xl h-full  flex flex-col'>
-				<div className='w-full flex justify-center mb-5'>
+		<aside className='fixed sm:static bottom-4 left-4 right-4 z-2 w-auto bg-[#d2a772] shadow-md sm:w-60 p-2 sm:p-4 rounded-xl sm:rounded-xl flex justify-center items-center sm:h-full  sm:flex-col'>
+			{/* <aside className='bg-[#d2a772] shadow-md sm:w-60 p-2 sm:p-4 rounded-xl sm:rounded-xl flex justify-center items-center sm:h-full  sm:flex-col'> */}
+			<div className='w-full hidden sm:flex justify-start sm:justify-center'>
+				<Link href='/'>
 					<Image
 						src={tbt_logo}
-						className='w-16 sm:w-32 cursor-pointer rounded-full'
+						className='size-20 sm:size-28 cursor-pointer rounded-full'
 						alt='evolve'
 					/>
-				</div>
+				</Link>
+			</div>
 
-				<div className='flex flex-col justify-between flex-1 mt-4'>
-					<ul>
-						<li>
-							<button
-								className='mb-4 font-medium text-lg inline-flex active:opacity-60 sm:hover:opacity-80 cursor-pointer items-center'
-								name='orders'
-								onClick={handlerComponentView}
-							>
-								<div className='w-10 flex justify-center'>
-									<FontAwesomeIcon className='w-7 h-7' icon={faReceipt} />
-								</div>
-								<p className='ml-2'>Pedidos</p>
-							</button>
-						</li>
-						<li>
-							<button
-								className='mb-4 font-medium text-lg inline-flex active:opacity-60 sm:hover:opacity-80 cursor-pointer items-center'
-								name='burgers'
-								onClick={handlerComponentView}
-							>
-								<div className='w-10 flex justify-center'>
-									<FontAwesomeIcon className='w-7 h-7' icon={faBurger} />
-								</div>
-								<p className='ml-2'>Burgers</p>
-							</button>
-						</li>
-						<li>
-							<button
-								className='mb-4 font-medium text-lg inline-flex active:opacity-60 sm:hover:opacity-80 cursor-pointer items-center'
-								name='drinks'
-								onClick={handlerComponentView}
-							>
-								<div className='w-10 flex justify-center'>
-									<FontAwesomeIcon
-										className='w-7 h-7 ml-1'
-										icon={faBeerMugEmpty}
-									/>
-								</div>
-								<p className='ml-2'>Bebidas</p>
-							</button>
-						</li>
-					</ul>
-
-					<button
-						className='p-2 rounded-xl bg-[#491718] active:opacity-60 sm:hover:opacity-80 text-[#d2a772] w-full font-semibold'
-						name='createArticle'
-						onClick={handlerComponentView}
-					>
-						Crear artículo
+			<div className='flex justify-center sm:justify-between sm:flex-col sm:flex-1 w-full sm:mt-4'>
+				<ul className='flex sm:block items-center'>
+					<li className='flex justify-center sm:justify-start'>
+						<button
+							className='font-semibold text-lg inline-flex h-full cursor-pointer items-center ml-2 sm:ml-0 bg-black bg-opacity-0 active:bg-opacity-10 sm:active:bg-opacity-15 sm:hover:bg-opacity-10 w-full p-2 rounded-xl'
+							name='burgers'
+							onClick={() => router.push('/admin/burgers')}
+						>
+							<FontAwesomeIcon className='size-8' icon={faBurger} />
+							<p className='hidden sm:flex ml-2'>BURGERS</p>
+						</button>
+					</li>
+					<button className='flex justify-center ml-2 sm:ml-0 sm:hidden text-[#491718]'>
+						<FontAwesomeIcon
+							className='size-10'
+							icon={faCirclePlus}
+							onClick={() => router.push('/admin/new-product')}
+						/>
 					</button>
-				</div>
+					<li className='flex justify-center sm:justify-start'>
+						<button
+							className='font-semibold text-lg inline-flex h-full cursor-pointer items-center ml-2 sm:ml-0 bg-black bg-opacity-0 active:bg-opacity-10 sm:active:bg-opacity-15 sm:hover:bg-opacity-10 w-full p-2 rounded-xl'
+							name='drinks'
+							onClick={() => router.push('/admin/drinks')}
+						>
+							<FontAwesomeIcon className='size-8' icon={faBeerMugEmpty} />
+							<p className='hidden sm:flex ml-2'>BEBIDAS</p>
+						</button>
+					</li>
+				</ul>
+
+				<button
+					className='hidden sm:flex sm:justify-center p-2 rounded-xl bg-[#491718] active:opacity-80 sm:hover:opacity-80 sm:active:opacity-90 text-[#d2a772] w-full font-semibold'
+					onClick={() => router.push('/admin/new-product')}
+				>
+					Crear producto
+				</button>
 			</div>
 		</aside>
 	);
