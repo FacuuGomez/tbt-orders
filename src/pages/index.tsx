@@ -50,11 +50,17 @@ export default function Home({ initialProducts }: Props) {
 		fetchNewProducts();
 	}, []);
 
-	const burgers =
-		products && products.filter((product) => product.product === 'burger');
+	// const burgers =
+	// 	products && products.filter((product) => product.product === 'burger');
+	const burgers = Array.isArray(products)
+		? products.filter((product) => product.product === 'burger')
+		: [];
 
-	const drinks =
-		products && products.filter((product) => product.product === 'drink');
+	// const drinks =
+	// 	products && products.filter((product) => product.product === 'drink');
+	const drinks = Array.isArray(products)
+		? products.filter((product) => product.product === 'drink')
+		: [];
 
 	const openModal = () => {
 		setModalIsOpen(true);

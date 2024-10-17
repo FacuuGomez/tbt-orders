@@ -20,6 +20,7 @@ export const Footer = () => {
 								src={tbt_logo}
 								className='w-16 sm:w-20 cursor-pointer rounded-full mr-4'
 								alt='evolve'
+								priority
 							/>
 						</div>
 

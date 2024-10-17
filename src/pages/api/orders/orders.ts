@@ -1,7 +1,8 @@
+// import { getConnection } from '@/utils/database';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default function Orders(req: NextApiRequest, res: NextApiResponse) {
-	console.log(req.method, req.url);
+	// const conn = await getConnection();
 
 	const { method } = req;
 

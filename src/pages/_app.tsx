@@ -9,7 +9,7 @@ const poppins = Poppins({
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<div className={poppins.className}>
+		<div className={poppins.className} suppressHydrationWarning>
 			<Component {...pageProps} />
 		</div>
 	);
