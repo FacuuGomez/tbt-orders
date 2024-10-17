@@ -36,8 +36,11 @@ export default function BurgersPage({ initialProducts }: Props) {
 		fetchNewProducts();
 	}, []);
 
-	const burgers =
-		products && products.filter((product) => product.product === 'burger');
+	// const burgers =
+	// 	products && products.filter((product) => product.product === 'burger');
+	const burgers = Array.isArray(products)
+		? products.filter((product) => product.product === 'burger')
+		: [];
 
 	return (
 		<AsideLayout

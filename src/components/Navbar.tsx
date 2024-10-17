@@ -36,6 +36,7 @@ export const Navbar = ({
 								src={tbt_logo}
 								className='w-16 sm:w-20 cursor-pointer rounded-full'
 								alt='evolve'
+								priority
 							/>
 						</Link>
 

@@ -230,19 +230,19 @@ export const Cart = ({
 											No hay articulos cargados.
 										</li>
 									) : (
-										order.articles.map((article) => (
+										order.articles.map((article, index) => (
 											<li
 												className='flex justify-between items-center mb-2 mr-[6px]'
-												key={article.name}
+												key={`${article.name}-${index}`}
 											>
 												<div className='flex items-center'>
-													<Image
+													{/* <Image
 														src={`/assets/${article.image}`}
 														className='w-20 sm:w-28 mr-4 cursor-pointer rounded-2xl'
 														alt='American burger'
 														width={90}
 														height={90}
-													/>
+													/> */}
 
 													<div>
 														<p className='font-semibold text-lg text-start'>

@@ -6,14 +6,6 @@ export interface Product {
 	product: string;
 }
 
-type ArticleName =
-	| 'American burger'
-	| 'Cheese burger'
-	| 'Burger 4 quesos'
-	| 'BBQ burger'
-	| 'Coca Cola'
-	| 'Schneider';
-
 export interface Article {
 	name: any;
 	price: any;

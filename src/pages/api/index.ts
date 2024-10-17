@@ -1,3 +1,6 @@
+import { getConnection } from '@/utils/database';
+import type { NextApiRequest, NextApiResponse } from 'next';
+
 const geekhound = [
 	'__________________________',
 	'--------------------------',
@@ -22,14 +25,19 @@ const geekhound = [
 	'--------------------------',
 ];
 
-import type { NextApiRequest, NextApiResponse } from 'next';
-import { conn } from '@/utils/database';
-
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const response = await conn.query('SELECT NOW()');
+	try {
+		const conn = await getConnection();
 
-	res.status(200).json({ conection: geekhound, time: response.rows[0].now });
+		const response = await conn.query('SELECT NOW()');
+
+		res.status(200).json({ connection: geekhound, time: response.rows[0].now });
+	} catch (error: any) {
+		res
+			.status(500)
+			.json({ message: 'Database connection failed', error: error.message });
+	}
 }

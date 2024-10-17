@@ -25,8 +25,11 @@ export default function BurgersPage({ products }: Props) {
 	const [modalIsOpen, setModalIsOpen] = useState<Product>(inititalState);
 	const router = useRouter();
 
-	const drinks =
-		products && products.filter((product) => product.product === 'drink');
+	// const drinks =
+	// 	products && products.filter((product) => product.product === 'drink');
+	const drinks = Array.isArray(products)
+		? products.filter((product) => product.product === 'drink')
+		: [];
 
 	return (
 		<AsideLayout
