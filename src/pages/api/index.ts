@@ -30,6 +30,24 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	try {
+		// Configura manualmente los encabezados CORS
+		res.setHeader('Access-Control-Allow-Credentials', 'true');
+		res.setHeader('Access-Control-Allow-Origin', '*'); // Puedes cambiar '*' por un dominio específico
+		res.setHeader(
+			'Access-Control-Allow-Methods',
+			'GET,OPTIONS,PATCH,DELETE,POST,PUT'
+		);
+		res.setHeader(
+			'Access-Control-Allow-Headers',
+			'X-CSRF-Token, X-Requested-With, Accept, Authorization, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+		);
+
+		if (req.method === 'OPTIONS') {
+			// Responde a las solicitudes preflight con un estado 200
+			res.status(200).end();
+			return;
+		}
+
 		const conn = await getConnection();
 
 		const response = await conn.query('SELECT NOW()');
