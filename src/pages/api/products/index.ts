@@ -3,23 +3,23 @@ import { getConnection } from '@/utils/database';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-	// Configura manualmente los encabezados CORS
-	res.setHeader('Access-Control-Allow-Credentials', 'true');
-	res.setHeader('Access-Control-Allow-Origin', '*'); // Puedes cambiar '*' por tu dominio en Vercel, como 'https://tu-dominio.vercel.app'
-	res.setHeader(
-		'Access-Control-Allow-Methods',
-		'GET,OPTIONS,PATCH,DELETE,POST,PUT'
-	);
-	res.setHeader(
-		'Access-Control-Allow-Headers',
-		'X-CSRF-Token, X-Requested-With, Accept, Authorization, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-	);
+	// // Configura manualmente los encabezados CORS
+	// res.setHeader('Access-Control-Allow-Credentials', 'true');
+	// res.setHeader('Access-Control-Allow-Origin', '*'); // Puedes cambiar '*' por tu dominio en Vercel, como 'https://tu-dominio.vercel.app'
+	// res.setHeader(
+	// 	'Access-Control-Allow-Methods',
+	// 	'GET,OPTIONS,PATCH,DELETE,POST,PUT'
+	// );
+	// res.setHeader(
+	// 	'Access-Control-Allow-Headers',
+	// 	'X-CSRF-Token, X-Requested-With, Accept, Authorization, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
+	// );
 
-	// Maneja las solicitudes preflight (OPTIONS)
-	if (req.method === 'OPTIONS') {
-		res.status(200).end();
-		return;
-	}
+	// // Maneja las solicitudes preflight (OPTIONS)
+	// if (req.method === 'OPTIONS') {
+	// 	res.status(200).end();
+	// 	return;
+	// }
 
 	const conn = await getConnection();
 	const { method, body } = req;

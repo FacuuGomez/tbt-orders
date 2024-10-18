@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+/tbt-orders
+├── /public
+├── /src
+│ ├── /components
+│ │ └── Navbar.tsx
+│ ├── /pages
+│ │ ├── /admin
+│ │ │ ├── /burgers
+│ │ │ │ └── index.tsx
+│ │ │ │── /drinks
+│ │ │ │ └── index.tsx
+│ │ │ │── /new-product
+│ │ │ │ └── index.tsx
+│ │ │ └── /edit-rproduct
+│ │ │ └── index.tsx
+│ │ ├── /api
+│ │ │ └── index.ts
+│ │ ├── \_app.tsx
+│ │ ├── globals.css
+│ │ └── index.tsx
+│ ├── /utils (opcional: utilidades y funciones comunes)
+│ └── /context
+├── .env.development.local
+├── .gitignore
+├── next.config.js
+└── package-lock.json
+├── package.json
+└── tsconfig.json
