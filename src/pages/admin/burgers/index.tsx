@@ -26,11 +26,27 @@ export default function BurgersPage({ initialProducts }: Props) {
 	const [products, setProducts] = useState<Product[]>(initialProducts);
 	const router = useRouter();
 
+	// const fetchNewProducts = async () => {
+	// 	// const res = await fetch('http://localhost:3000/api/products');
+	// 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+	// 	const newProducts = await res.json();
+	// 	setProducts(newProducts);
+	// };
+
 	const fetchNewProducts = async () => {
-		// const res = await fetch('http://localhost:3000/api/products');
-		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
-		const newProducts = await res.json();
-		setProducts(newProducts);
+		console.log('API URL:', process.env.NEXT_PUBLIC_API_URL); // Verifica la URL
+		try {
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/api/products`
+			);
+			if (!res.ok) {
+				throw new Error('Network response was not ok');
+			}
+			const newProducts = await res.json();
+			setProducts(newProducts);
+		} catch (error) {
+			console.error('Fetch error:', error);
+		}
 	};
 
 	useEffect(() => {
