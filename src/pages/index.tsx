@@ -41,7 +41,8 @@ export default function Home({ initialProducts }: Props) {
 	const [products, setProducts] = useState<Product[]>(initialProducts);
 
 	const fetchNewProducts = async () => {
-		const res = await fetch('http://localhost:3000/api/products');
+		// const res = await fetch('http://localhost:3000/api/products');
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
 		const newProducts = await res.json();
 		setProducts(newProducts);
 	};

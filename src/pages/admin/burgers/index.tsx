@@ -27,7 +27,8 @@ export default function BurgersPage({ initialProducts }: Props) {
 	const router = useRouter();
 
 	const fetchNewProducts = async () => {
-		const res = await fetch('http://localhost:3000/api/products');
+		// const res = await fetch('http://localhost:3000/api/products');
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
 		const newProducts = await res.json();
 		setProducts(newProducts);
 	};

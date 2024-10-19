@@ -89,7 +89,9 @@ export default function BurgersPage({ products }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	const res = await fetch('http://localhost:3000/api/products');
+	// const res = await fetch('http://localhost:3000/api/products');
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+
 	const products = await res.json();
 
 	return {
