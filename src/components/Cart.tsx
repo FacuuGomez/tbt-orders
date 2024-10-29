@@ -2,10 +2,7 @@
 
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faTrash } from '@fortawesome/free-solid-svg-icons';
-// import american_burger from '../../public/assets/american-burger.jpg';
-// import cheese_burger from '../../public/assets/cheese-burger.jpg';
-// import { createOrder } from '@/actions/orders-actions';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -184,6 +181,8 @@ export const Cart = ({
 	};
 
 	useEffect(() => {
+		console.log(order);
+
 		if (order.totalArticles > 0) {
 			setError((prev) => ({
 				...prev,
@@ -205,12 +204,12 @@ export const Cart = ({
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						exit={{ opacity: 0, scale: 0 }}
-						className='relative justify-center text-center bg-[#d2a772] m-5 md:max-w-2xl w-full p-6 rounded-3xl'
+						className='relative justify-center text-center bg-[#d2a772] m-4 md:max-w-2xl w-full p-4 rounded-3xl'
 					>
 						<div>
 							<button className='flex' onClick={closeModal}>
 								<FontAwesomeIcon
-									className='absolute top-6 right-6 w-8 h-8 hover:opacity-80 active:text-[#491718] cursor-pointer'
+									className='absolute top-6 right-6 w-8 h-8 hover:text-[#3a1212] active:text-[#491718] cursor-pointer'
 									icon={faCircleXmark}
 								/>
 							</button>
@@ -244,10 +243,28 @@ export const Cart = ({
 														height={90}
 													/> */}
 
+													<div className='size-28 sm:size-32 mr-4 rounded-2xl bg-[#491718] flex justify-center items-center'>
+														{article.image ? (
+															<Image
+																src={article.image}
+																alt={article.name}
+																className='custom-shadow object-cover'
+																style={{ width: `${article.width - 10}px` }}
+																width={500}
+																height={400}
+															/>
+														) : (
+															<p className='text-center text-[#d2a772]'>
+																{article.name}
+															</p>
+														)}
+													</div>
+
 													<div>
-														<p className='font-semibold text-lg text-start'>
+														<p className='font-semibold sm:text-lg text-start'>
 															{article.name}
 														</p>
+														<p className='flex justify-start'>{article.size}</p>
 														<p className='flex justify-start'>
 															Cant.: {article.quantity} x ${article.price}
 														</p>
@@ -423,7 +440,7 @@ export const Cart = ({
 								</div>
 
 								<button
-									className='bg-[#491718] active:opacity-60 sm:hover:opacity-80 text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
+									className='bg-[#491718] hover:bg-[#3a1212] active:bg-[#491718] text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
 									type='submit'
 								>
 									Enviar pedido

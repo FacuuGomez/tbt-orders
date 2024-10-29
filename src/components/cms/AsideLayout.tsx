@@ -18,7 +18,7 @@ export const AsideLayout = ({
 }: AsideLayoutProps) => {
 	return (
 		<div className='flex justify-center min-h-screen'>
-			<div className='flex-row sm:flex bg-black/10 max-w-7xl w-full min-h-full items-center rounded-xl p-2 m-2 sm:p-4'>
+			<div className='flex-row sm:flex bg-black/10 max-w-7xl w-full min-h-full items-center sm:rounded-xl p-2 sm:m-2 sm:p-4'>
 				<div className='sm:hidden flex-col w-full bg-[#d2a772] shadow-md rounded-xl p-4'>
 					<div className='flex justify-center items-center'>
 						<Link href='/'>

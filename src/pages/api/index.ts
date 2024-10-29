@@ -1,4 +1,4 @@
-import { getConnection } from '@/utils/database';
+import { getConnection } from '@/utils/database/db';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 const geekhound = [

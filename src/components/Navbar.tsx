@@ -29,7 +29,7 @@ export const Navbar = ({
 				duration={0.3}
 				className='flex justify-center py-4 bg-[#D2A772] relative z-10'
 			>
-				<div className='flex-col mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
+				<div className='flex-col mx-4 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
 					<div className='flex justify-between items-center'>
 						<Link href='/'>
 							<Image
@@ -46,7 +46,7 @@ export const Navbar = ({
 
 						<button className='flex relative' onClick={openModal}>
 							<FontAwesomeIcon
-								className='h-6  hover:opacity-80 active:text-[#491718] cursor-pointer'
+								className='h-6 hover:text-[#3a1212] active:text-[#491718] cursor-pointer'
 								icon={faCartShopping}
 							/>
 

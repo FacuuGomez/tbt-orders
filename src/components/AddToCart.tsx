@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Product, Order, Article } from '@/interfaces';
+import Image from 'next/image';
 
 type QuantityHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -84,6 +85,8 @@ export default function AddToCart({
 					size: articleQuantity.size,
 					quantity: articleQuantity.quantity,
 					product: modalIsOpen?.product,
+					image: modalIsOpen?.image,
+					width: modalIsOpen?.width,
 				},
 			]);
 		}
@@ -134,20 +137,31 @@ export default function AddToCart({
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						exit={{ opacity: 0, scale: 0 }}
-						className='relative justify-center text-center bg-[#d2a772] m-5 md:max-w-2xl w-full p-6 rounded-3xl'
+						className='relative text-center  bg-[#d2a772]  m-5 md:max-w-2xl w-full rounded-3xl'
 					>
-						<div>
-							<button className='flex' onClick={closeModal}>
-								<FontAwesomeIcon
-									className='absolute top-6 right-6 size-8 hover:opacity-80 active:text-[#491718] cursor-pointer'
-									icon={faCircleXmark}
-								/>
-							</button>
+						<button
+							className='flex absolute top-6 right-6 z-20'
+							onClick={closeModal}
+						>
+							<FontAwesomeIcon
+								className=' size-8 hover:text-[#3a1212] active:text-[#491718] cursor-pointer'
+								icon={faCircleXmark}
+							/>
+						</button>
 
-							<h3 className='text-xl font-semibold pb-6'>{modalIsOpen.name}</h3>
-						</div>
+						{/* {modalIsOpen.name === 'American Burger' && (
+							<Image
+								src={american}
+								alt='American Burger'
+								width={500}
+								height={400}
+								className='absolute top-0 w-full h-96 object-cover rounded-t-3xl z-10'
+							/>
+						)} */}
 
-						<div className='flex flex-col gap-6'>
+						<div className='flex flex-col justify-end gap-6 h-full p-6'>
+							<h3 className='text-xl font-semibold mt-8'>{modalIsOpen.name}</h3>
+
 							<p className='text-sm sm:text-medium'>
 								{modalIsOpen.description}
 							</p>
@@ -172,7 +186,7 @@ export default function AddToCart({
 							)}
 
 							<div className='flex justify-between items-center'>
-								<p className='flex justify-center items-center  font-semibold text-lg text-[#491718]'>
+								<p className='items-center mr-4 font-semibold sm:text-lg text-[#491718]'>
 									${articleQuantity.quantity === 0 ? '0' : modalIsOpen.price}
 									{articleQuantity.quantity > 1 &&
 										` x ${articleQuantity.quantity} = $${
@@ -180,7 +194,7 @@ export default function AddToCart({
 										}`}
 								</p>
 
-								<div className='grid grid-cols-3 justify-center b w-40 h-10 text-xl font-semibold'>
+								<div className='grid grid-cols-3 justify-center w-40 h-10 text-xl font-semibold'>
 									<button
 										className='flex justify-center items-center border-2 size-12 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-full cursor-pointer select-none transition '
 										name='minusButton'
@@ -206,7 +220,7 @@ export default function AddToCart({
 							</div>
 
 							<button
-								className='bg-[#491718] active:opacity-80 sm:hover:opacity-80 sm:active:opacity-90 text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
+								className='bg-[#491718] hover:bg-[#3a1212] active:bg-[#491718] text-[#d2a772] font-semibold p-4 rounded-2xl w-full'
 								onClick={addToCart}
 							>
 								Agregar al carrito
