@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { AsideLayout } from '@/components/cms/AsideLayout';
 import Image from 'next/image';
-import cheese_burger from '../../../../public/assets/cheese-burger.jpg';
 import { Product } from '@/interfaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +18,8 @@ const inititalState = {
 	description: '',
 	price: 0,
 	product: '',
+	image: '',
+	width: '',
 };
 
 export default function BurgersPage({ initialProducts }: Props) {
@@ -34,7 +35,6 @@ export default function BurgersPage({ initialProducts }: Props) {
 	// };
 
 	const fetchNewProducts = async () => {
-		console.log('API URL:', process.env.NEXT_PUBLIC_API_URL); // Verifica la URL
 		try {
 			const res = await fetch(
 				`${process.env.NEXT_PUBLIC_API_URL}/api/products`
@@ -78,17 +78,22 @@ export default function BurgersPage({ initialProducts }: Props) {
 								href={`/admin/edit-product/${burger.id}`}
 							>
 								<div className='flex items-center'>
-									<Image
-										src={cheese_burger}
-										className='size-24 sm:size-28 mr-4 cursor-pointer rounded-2xl'
-										alt='American burger'
-									/>
+									<div className='size-32 sm:size-36 mr-4 rounded-xl bg-[#491718] flex justify-center items-center'>
+										<Image
+											src={burger.image}
+											alt={burger.name}
+											className='custom-shadow object-cover'
+											style={{ width: `${burger.width}px` }}
+											width={500}
+											height={400}
+										/>
+									</div>
 
 									<div>
 										<p className='font-semibold text-lg text-start'>
 											{burger.name}
 										</p>
-										<p className='flex justify-start text-sm sm:text-medium mr-12'>
+										<p className='flex w-40 sm:w-full justify-start text-sm sm:text-medium mr-12'>
 											{burger.description}
 										</p>
 										<p className='font-semibold text-[#491718]'>
@@ -118,8 +123,8 @@ export default function BurgersPage({ initialProducts }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-	// const res = await fetch('http://localhost:3000/api/products');
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
+	const res = await fetch('http://localhost:3000/api/products');
+	// const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
 	const initialProducts = await res.json();
 
 	return {

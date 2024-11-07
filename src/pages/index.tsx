@@ -1,8 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import american_burger from '../../public/assets/american-burger.jpg';
-import cocacola from '../../public/assets/coca-cola.jpg';
 import { Navbar } from '@/components/Navbar';
 import { Cart } from '@/components/Cart';
 import { Footer } from '@/components/Footer';
@@ -21,6 +19,8 @@ const inititalBurgerOpen: Product = {
 	description: '',
 	price: 0,
 	product: '',
+	image: '',
+	width: '',
 };
 
 const inititalOrder: Order = {
@@ -110,7 +110,7 @@ export default function Home({ initialProducts }: Props) {
 			</div>
 
 			<main className='flex justify-center min-h-screen pt-40 sm:pt-44'>
-				<div className='mx-5 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
+				<div className='mx-4 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
 					<AnimatePresence>
 						{articlesIsOpen ? (
 							<motion.section
@@ -143,17 +143,24 @@ export default function Home({ initialProducts }: Props) {
 													delay: 0.4 + index * 0.1,
 													duration: 0.1,
 												}}
-												className='flex justify-between items-center bg-black/5 hover:bg-black/10 active:bg-black/10 sm:active:bg-black/5 w-full p-4 mb-2 rounded-xl cursor-pointer'
 												key={burger.id}
 												onClick={() => setModalBurgerIsOpen(burger)}
+												className='flex justify-between items-center bg-black/5 hover:bg-black/10 active:bg-black/10 sm:active:bg-black/5 w-full p-4 mb-2 rounded-2xl cursor-pointer'
 											>
-												<Image
-													src={american_burger}
-													className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-													alt='evolve'
-												/>
+												<div className='-z-10'>
+													<div className='size-32 sm:size-36 rounded-2xl bg-[#491718] flex justify-center items-center'>
+														<Image
+															src={burger.image}
+															alt={burger.name}
+															className='custom-shadow object-cover'
+															style={{ width: `${burger.width}px` }}
+															width={500}
+															height={400}
+														/>
+													</div>
+												</div>
 
-												<div className='flex-wrap sm:flex justify-between w-full'>
+												<div className='flex-wrap sm:flex justify-between w-full ml-4'>
 													<div className='flex-col content-center'>
 														<p className='font-semibold text-xl'>
 															{burger.name}
@@ -163,7 +170,7 @@ export default function Home({ initialProducts }: Props) {
 														</p>
 													</div>
 
-													<p className='flex  items-center font-semibold text-lg text-[#491718]'>
+													<p className='flex items-center font-semibold text-lg text-[#491718]'>
 														${burger.price}
 													</p>
 												</div>
@@ -202,17 +209,24 @@ export default function Home({ initialProducts }: Props) {
 													delay: 0.4 + index * 0.1,
 													duration: 0.1,
 												}}
-												className='flex justify-between items-center bg-black/5 hover:bg-black/10 active:bg-black/10 sm:active:bg-black/5 w-full p-4 mb-2 rounded-xl cursor-pointer'
+												className='flex justify-between items-center bg-black/5 hover:bg-black/10 active:bg-black/10 sm:active:bg-black/5 w-full p-4 mb-2 rounded-2xl cursor-pointer'
 												key={drink.id}
 												onClick={() => setModalBurgerIsOpen(drink)}
 											>
-												<Image
-													src={cocacola}
-													className='w-28 sm:w-36 mr-4 sm:mr-6 cursor-pointer rounded-2xl'
-													alt='cocacola'
-												/>
+												<div className='-z-10'>
+													<div className='size-32 sm:size-36 rounded-2xl bg-[#491718] flex justify-center items-center'>
+														<Image
+															src={drink.image}
+															alt={drink.name}
+															className='custom-shadow object-cover'
+															style={{ width: `${drink.width}px` }}
+															width={500}
+															height={400}
+														/>
+													</div>
+												</div>
 
-												<div className='flex-wrap sm:flex justify-between w-full'>
+												<div className='flex-wrap sm:flex justify-between w-full ml-4'>
 													<div className='flex-col content-center'>
 														<p className='font-semibold text-xl'>
 															{drink.name}
@@ -222,7 +236,7 @@ export default function Home({ initialProducts }: Props) {
 														</p>
 													</div>
 
-													<p className='flex justify-center items-center font-semibold text-lg text-[#491718]'>
+													<p className='flex  items-center font-semibold text-lg text-[#491718]'>
 														${drink.price}
 													</p>
 												</div>

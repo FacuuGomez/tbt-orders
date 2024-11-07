@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { AsideLayout } from '@/components/cms/AsideLayout';
 import Image from 'next/image';
-import cheese_burger from '../../../../public/assets/cheese-burger.jpg';
 import { Product } from '@/interfaces';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +18,8 @@ const inititalState = {
 	description: '',
 	price: 0,
 	product: '',
+	image: '',
+	width: '',
 };
 
 export default function BurgersPage({ products }: Props) {
@@ -47,19 +48,22 @@ export default function BurgersPage({ products }: Props) {
 								href={`/admin/edit-product/${drink.id}`}
 							>
 								<div className='flex items-center'>
-									<Image
-										src={cheese_burger}
-										className='w-20 sm:w-28 mr-4 cursor-pointer rounded-2xl'
-										alt='American burger'
-										width={90}
-										height={90}
-									/>
+									<div className='size-32 sm:size-36 mr-4 rounded-xl bg-[#491718] flex justify-center items-center'>
+										<Image
+											src={drink.image}
+											alt={drink.name}
+											className='custom-shadow object-cover'
+											style={{ width: `${drink.width}px` }}
+											width={500}
+											height={400}
+										/>
+									</div>
 
 									<div>
 										<p className='font-semibold text-lg text-start'>
 											{drink.name}
 										</p>
-										<p className='flex justify-start text-sm sm:text-medium'>
+										<p className='flex w-40 sm:w-full justify-start text-sm sm:text-medium'>
 											{drink.description}
 										</p>
 										<p className='font-semibold text-[#491718]'>

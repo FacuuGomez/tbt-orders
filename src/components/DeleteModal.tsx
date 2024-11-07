@@ -2,6 +2,7 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { Product } from '@/interfaces';
+import { deleteFile } from '@/utils/firebase/deleteFile';
 
 interface DeleteModalProps {
 	modalIsOpen?: Product;
@@ -16,10 +17,13 @@ export default function DeleteModal({
 
 	const handleDelete = async (id: string) => {
 		try {
+			if (modalIsOpen?.image) deleteFile(modalIsOpen?.image);
+
 			// await fetch('http://localhost:3000/api/products/' + id, {
-			await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products` + id, {
+			await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/` + id, {
 				method: 'DELETE',
 			});
+
 			router.push(`/admin/${modalIsOpen?.product}s`);
 			closeModal?.();
 		} catch (error) {
@@ -58,7 +62,7 @@ export default function DeleteModal({
 								Cancelar
 							</button>
 							<button
-								className='text-[#d2a772] bg-red-500 active:bg-red-600 sm:hover:bg-red-600 px-4 py-2 rounded-xl font-semibold transition-all'
+								className='text-[#d2a772] bg-red-600 active:bg-red-700 sm:hover:bg-red-700 px-4 py-2 rounded-xl font-semibold transition-all'
 								onClick={() => handleDelete(modalIsOpen.id)}
 							>
 								Borrar

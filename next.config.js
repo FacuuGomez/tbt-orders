@@ -1,14 +1,17 @@
-// /** @type {import('next').NextConfig} */
-// const nextConfig = {};
-
-// export default nextConfig;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'firebasestorage.googleapis.com',
+				pathname: '/v0/b/tbt-images.appspot.com/o/**', // Permite imágenes con este patrón
+			},
+		],
+	},
 	async headers() {
 		return [
 			{
-				// Esto permite las solicitudes CORS desde cualquier origen
 				source: '/api/:path*',
 				headers: [
 					{ key: 'Access-Control-Allow-Origin', value: '*' },

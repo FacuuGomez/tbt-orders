@@ -55,3 +55,37 @@ body {
 		rgba(0, 0, 255, 0) 50%
 	);
 }
+
+/* new product image */
+
+.custom-shadow {
+	filter: drop-shadow(2px 5px 5px rgba(0, 0, 0, 1));
+}
+
+.range-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	background: rgb(37 99 235);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: background 0.3s ease;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+	background: #3b82f6;
+}
+
+.range-slider::-moz-range-thumb {
+	width: 16px;
+	height: 16px;
+	background: rgb(37 99 235);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: background 0.3s ease;
+}
+
+.range-slider::-moz-range-thumb:hover {
+	background: rgb(29 78 216);
+}

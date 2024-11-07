@@ -4,15 +4,18 @@ export interface Product {
 	description: string;
 	price: number;
 	product: string;
+	image: string;
+	width: string;
 }
 
 export interface Article {
 	name: any;
 	price: any;
 	quantity: number;
-	image?: string;
-	size?: string;
 	product?: any;
+	size?: string;
+	image?: string;
+	width: any;
 }
 
 export interface Order {
