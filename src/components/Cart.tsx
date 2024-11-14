@@ -51,16 +51,16 @@ export const Cart = ({
 
 	const formRef = useRef<HTMLFormElement>(null);
 
-	const deleteOrder: deleteOrderHandler = (event) => {
-		const newOrder = order.articles.filter(
-			(article) => article.name !== event.currentTarget.name
-		);
+	// const deleteOrder: deleteOrderHandler = (event) => {
+	// 	const newOrder = order.articles.filter(
+	// 		(article) => article.name !== event.currentTarget.name
+	// 	);
 
-		// setOrder({
-		// 	...order,
-		// 	articles: newOrder,
-		// });
-	};
+	// 	setOrder({
+	// 		...order,
+	// 		articles: newOrder,
+	// 	});
+	// };
 
 	const handleMessageChange: messageOrderHandler = (event) => {
 		const target = event.target as
@@ -134,33 +134,18 @@ export const Cart = ({
 
 		if (formIsValid) {
 			const phoneNumber = '541141786108';
-			// const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-			// 	`\n*Nombre*: ${message.orderName}\n*Pago*: ${
-			// 		message.orderPayment
-			// 	}\n*Delivery*: ${
-			// 		message.orderDispatch
-			// 	}\n\n-------------------------------\nPEDIDO\n\n${order.articles
-			// 		.map((article) => {
-			// 			return `- ${article.name}: ${article.quantity} x $${
-			// 				article.price
-			// 			} = $${article.price * article.quantity}\n\n`;
-			// 		})
-			// 		.join('')}CANT. BURGERS: ${order.totalBurgers}\nCANT. BEBIDAS: ${
-			// 		order.totalDrinks
-			// 	}\n\n*TOTAL: $${
-			// 		order.totalAmount
-			// 	}*\n-------------------------------\n\n${
-			// 		message.orderNote ? `*Observación*: ${message.orderNote}` : ''
-			// 	}`
-			// )}`;
 			const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
 				`\n*Nombre:* ${message.orderName}\n*Pago:* ${
 					message.orderPayment
 				}\n*Delivery:* ${delivery ? 'Si' : 'No'}\n${
-					message.orderNote && `*Observación:* ${message.orderNote}\n`
+					message.orderNote ? `*Observación:* ${message.orderNote}\n` : ''
 				}\n-------------------------------\n*PEDIDO*\n\n${order.articles
 					.map((article) => {
-						return `- ${article.name}: ${article.quantity} x $${
+						const sizeText =
+							article.product === 'burger' && article.size
+								? ` (${article.size})`
+								: '';
+						return `- ${article.name}${sizeText}: ${article.quantity} x $${
 							article.price
 						} = $${article.price * article.quantity}\n`;
 					})
@@ -170,10 +155,12 @@ export const Cart = ({
 					order.totalAmount
 				}\n-------------------------------\nCANT. BURGERS: ${
 					order.totalBurgers
-				}\nCANT. BEBIDAS: ${order.totalDrinks}\n\n*TOTAL: $${
+				}\n\n*TOTAL: $${
 					delivery ? order.totalAmount + deliveryValue : order.totalAmount
 				}*\n-------------------------------`
 			)}`;
+
+			// CANT. BEBIDAS: ${order.totalDrinks}\n\n
 
 			window.open(whatsappLink, '_blank');
 			formRef.current?.reset();
@@ -181,8 +168,6 @@ export const Cart = ({
 	};
 
 	useEffect(() => {
-		console.log(order);
-
 		if (order.totalArticles > 0) {
 			setError((prev) => ({
 				...prev,
@@ -192,7 +177,7 @@ export const Cart = ({
 	}, [order]);
 
 	return (
-		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen'>
+		<div className='flex justify-center items-center bg-black/60 backdrop-blur-sm h-screen max-w-screen '>
 			<AnimatePresence>
 				{modalIsOpen && (
 					<motion.div
@@ -209,7 +194,7 @@ export const Cart = ({
 						<div>
 							<button className='flex' onClick={closeModal}>
 								<FontAwesomeIcon
-									className='absolute top-6 right-6 w-8 h-8 hover:text-[#3a1212] active:text-[#491718] cursor-pointer'
+									className='absolute top-4 right-4 w-8 h-8 hover:text-[#3a1212] active:text-[#491718] cursor-pointer'
 									icon={faCircleXmark}
 								/>
 							</button>
@@ -226,7 +211,7 @@ export const Cart = ({
 								<ul className='w-full max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
 									{!order.totalArticles ? (
 										<li className='flex justify-center items-center text-xl h-10 mb-4 opacity-60'>
-											No hay articulos cargados.
+											No hay artículos cargados.
 										</li>
 									) : (
 										order.articles.map((article, index) => (
@@ -234,7 +219,7 @@ export const Cart = ({
 												className='flex justify-between items-center mb-2 mr-[6px]'
 												key={`${article.name}-${index}`}
 											>
-												<div className='flex items-center'>
+												<div className='flex items-center w-full'>
 													{/* <Image
 														src={`/assets/${article.image}`}
 														className='w-20 sm:w-28 mr-4 cursor-pointer rounded-2xl'
@@ -243,37 +228,53 @@ export const Cart = ({
 														height={90}
 													/> */}
 
-													<div className='size-28 sm:size-32 mr-4 rounded-2xl bg-[#491718] flex justify-center items-center'>
-														{article.image ? (
-															<Image
-																src={article.image}
-																alt={article.name}
-																className='custom-shadow object-cover'
-																style={{ width: `${article.width - 10}px` }}
-																width={500}
-																height={400}
-															/>
-														) : (
-															<p className='text-center text-[#d2a772]'>
-																{article.name}
-															</p>
-														)}
+													<div>
+														<div className='size-28 sm:size-32 mr-4 rounded-2xl bg-[#491718] flex justify-center items-center'>
+															{article.image ? (
+																<Image
+																	src={article.image}
+																	alt={article.name}
+																	className='custom-shadow object-cover'
+																	style={{ width: `${article.width - 10}px` }}
+																	width={500}
+																	height={400}
+																/>
+															) : (
+																<p className='text-center text-[#d2a772]'>
+																	{article.name}
+																</p>
+															)}
+														</div>
 													</div>
 
-													<div>
+													<div className='w-full'>
 														<p className='font-semibold sm:text-lg text-start'>
 															{article.name}
 														</p>
-														<p className='flex justify-start'>{article.size}</p>
-														<p className='flex justify-start'>
-															Cant.: {article.quantity} x ${article.price}
-														</p>
+
+														<div className='flex justify-between'>
+															<div>
+																<p className='flex justify-start'>
+																	{article.product === 'burger'
+																		? article.size
+																		: 'Unidad'}
+																</p>
+																<p className='flex justify-start'>
+																	Cant.: {article.quantity} x ${article.price}
+																</p>
+															</div>
+															<div>
+																<p className='flex justify-center items-center font-medium text-[#491718]'>
+																	${article.price}
+																</p>
+																<p className='flex justify-center items-center font-medium text-[#491718]'>
+																	${article.quantity * article.price}
+																</p>
+															</div>
+														</div>
 													</div>
 												</div>
 
-												<p className='flex justify-center items-center md:pb-2 font-medium text-[#491718]'>
-													${article.quantity * article.price}
-												</p>
 												{/* <button
 													className='flex'
 													name={article.name}

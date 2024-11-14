@@ -88,7 +88,7 @@ export default function Home({ initialProducts }: Props) {
 				openDrinks={openDrinks}
 			/>
 
-			<div className={modalIsOpen ? 'fixed w-full' : 'hidden'}>
+			<div className={modalIsOpen ? 'fixed w-full z-20' : 'hidden'}>
 				<Cart
 					closeModal={closeModal}
 					modalIsOpen={modalIsOpen}
@@ -97,7 +97,7 @@ export default function Home({ initialProducts }: Props) {
 				/>
 			</div>
 
-			<div className={modalBurgerIsOpen?.id ? 'fixed w-full' : 'hidden'}>
+			<div className={modalBurgerIsOpen?.id ? 'fixed w-full  z-20' : 'hidden'}>
 				<AddToCart
 					closeModal={() => {
 						fetchNewProducts();
@@ -109,8 +109,8 @@ export default function Home({ initialProducts }: Props) {
 				/>
 			</div>
 
-			<main className='flex justify-center min-h-screen pt-40 sm:pt-44'>
-				<div className='mx-4 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
+			<main className='flex justify-center min-h-screen bg-[#D2A772]'>
+				<div className='mx-4 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full mt-32 sm:mt-36 py-6'>
 					<AnimatePresence>
 						{articlesIsOpen ? (
 							<motion.section
@@ -128,7 +128,7 @@ export default function Home({ initialProducts }: Props) {
 										hidden: { opacity: 0, x: -100 },
 										visible: { opacity: 1, x: 0 },
 									}}
-									className='font-bold text-2xl py-4'
+									className='font-bold text-2xl pb-4'
 								>
 									BURGERS
 								</motion.h1>
@@ -147,12 +147,12 @@ export default function Home({ initialProducts }: Props) {
 												onClick={() => setModalBurgerIsOpen(burger)}
 												className='flex justify-between items-center bg-black/5 hover:bg-black/10 active:bg-black/10 sm:active:bg-black/5 w-full p-4 mb-2 rounded-2xl cursor-pointer'
 											>
-												<div className='-z-10'>
+												<div>
 													<div className='size-32 sm:size-36 rounded-2xl bg-[#491718] flex justify-center items-center'>
 														<Image
 															src={burger.image}
 															alt={burger.name}
-															className='custom-shadow object-cover'
+															className='custom-shadow object-cover z-1'
 															style={{ width: `${burger.width}px` }}
 															width={500}
 															height={400}

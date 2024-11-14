@@ -21,12 +21,12 @@ export const Navbar = ({
 	openDrinks,
 }: NavbarProps) => {
 	return (
-		<div className='fixed max-w-screen w-full'>
+		<div className='fixed max-w-screen w-full z-10'>
 			<MotionTransition
 				position='bottom'
 				delay={0.1}
 				opacity={1}
-				duration={0.3}
+				duration={0.2}
 				className='flex justify-center py-4 bg-[#D2A772] relative z-10'
 			>
 				<div className='flex-col mx-4 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full'>
@@ -62,16 +62,16 @@ export const Navbar = ({
 				position='bottom'
 				delay={0.3}
 				opacity={1}
-				duration={0.5}
+				duration={0.3}
 				className='flex justify-center py-4 bg-[#491718] text-[#D2A772]'
 			>
-				<ul className='flex justify-center gap-8 max-w-7xl w-full'>
-					<li className='font-semibold text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer transition'>
+				<ul className='flex justify-center gap-8 max-w-7xl w-full h-2'>
+					{/* <li className='font-semibold text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer transition'>
 						<button onClick={openBurgers}>Burgers</button>
 					</li>
 					<li className='font-semibold text-lg sm:hover:opacity-80 active:opacity-60 cursor-pointer transition'>
 						<button onClick={openDrinks}>Bebidas</button>
-					</li>
+					</li> */}
 				</ul>
 			</MotionTransition>
 		</div>
