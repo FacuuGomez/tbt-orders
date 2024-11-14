@@ -4,6 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { Product, Order, Article } from '@/interfaces';
 import Image from 'next/image';
+import chesse from '@/../../public/assets/chesse-burger.jpg';
+import american from '@/../../public/assets/american-burger.jpg';
+import bbq from '@/../../public/assets/burger-bbq.jpg';
+import fourquesos from '@/../../public/assets/burger-4-quesos.jpg';
 
 type QuantityHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
 
@@ -20,6 +24,7 @@ interface ArticleQuantity {
 	name?: string;
 	size: string;
 	quantity: number;
+	price?: number;
 }
 
 // type SizeBurger = 'SIMPLE' | 'DOBLE' | 'TRIPLE';
@@ -28,6 +33,7 @@ const initialQuantity = {
 	name: '',
 	size: '',
 	quantity: 0,
+	price: 0,
 };
 
 const updatedArticles: Article[] = [];
@@ -77,21 +83,40 @@ export default function AddToCart({
 			if (modalIsOpen?.product === 'burger')
 				setTotalBurgers(totalBurgers + articleQuantity.quantity);
 
-			setArticleList([
-				...articleList,
-				{
-					name: modalIsOpen?.name,
-					price: modalIsOpen?.price,
-					size: articleQuantity.size,
-					quantity: articleQuantity.quantity,
-					product: modalIsOpen?.product,
-					image: modalIsOpen?.image,
-					width: modalIsOpen?.width,
-				},
-			]);
+			const existingArticleIndex = articleList.findIndex(
+				(article) =>
+					article.name === articleQuantity.name &&
+					article.size === articleQuantity.size
+			);
+
+			if (existingArticleIndex !== -1) {
+				const updatedArticleList = articleList.map((article, index) =>
+					index === existingArticleIndex
+						? {
+								...article,
+								quantity: article.quantity + articleQuantity.quantity,
+						  }
+						: article
+				);
+				setArticleList(updatedArticleList);
+			} else {
+				setArticleList([
+					...articleList,
+					{
+						name: modalIsOpen?.name,
+						price: articleQuantity.price,
+						size: articleQuantity.size,
+						quantity: articleQuantity.quantity,
+						product: modalIsOpen?.product,
+						image: modalIsOpen?.image,
+						width: modalIsOpen?.width,
+					},
+				]);
+			}
 		}
 
 		setArticleQuantity({
+			...articleQuantity,
 			name: modalIsOpen?.name,
 			size: 'Simple',
 			quantity: 0,
@@ -117,7 +142,39 @@ export default function AddToCart({
 	}, [articleList]);
 
 	useEffect(() => {
+		if (articleQuantity.price === undefined) {
+			setArticleQuantity({
+				...articleQuantity,
+				price: modalIsOpen?.price ?? 0,
+			});
+		} else if (articleQuantity.size === 'Simple') {
+			setArticleQuantity({
+				...articleQuantity,
+				price: modalIsOpen?.price,
+			});
+		} else if (articleQuantity.size === 'Doble') {
+			setArticleQuantity({
+				...articleQuantity,
+				price: modalIsOpen?.price && modalIsOpen?.price + 1000,
+			});
+		} else if (articleQuantity.size === 'Triple') {
+			setArticleQuantity({
+				...articleQuantity,
+				price: modalIsOpen?.price && modalIsOpen?.price + 2000,
+			});
+		}
+	}, [articleQuantity.size]);
+
+	useEffect(() => {
 		setArticleQuantity({
+			...articleQuantity,
+			price: modalIsOpen?.price,
+		});
+	}, [modalIsOpen]);
+
+	useEffect(() => {
+		setArticleQuantity({
+			...articleQuantity,
 			name: modalIsOpen?.name,
 			size: 'Simple',
 			quantity: 0,
@@ -137,10 +194,10 @@ export default function AddToCart({
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						exit={{ opacity: 0, scale: 0 }}
-						className='relative text-center  bg-[#d2a772]  m-5 md:max-w-2xl w-full rounded-3xl'
+						className='relative text-center  bg-[#d2a772]  m-4 md:max-w-2xl w-full rounded-3xl'
 					>
 						<button
-							className='flex absolute top-6 right-6 z-20'
+							className='flex absolute top-4 right-4 z-20'
 							onClick={closeModal}
 						>
 							<FontAwesomeIcon
@@ -149,18 +206,46 @@ export default function AddToCart({
 							/>
 						</button>
 
-						{/* {modalIsOpen.name === 'American Burger' && (
+						{modalIsOpen.name === 'Chesse Burger' && (
+							<Image
+								src={chesse}
+								alt='Chesse Burger'
+								width={500}
+								height={400}
+								className='w-full sm:h-96 object-cover rounded-t-3xl z-10 '
+								// className='absolute top-0 w-full h-96 object-cover rounded-t-3xl z-10 '
+							/>
+						)}
+						{modalIsOpen.name === 'American Burger' && (
 							<Image
 								src={american}
 								alt='American Burger'
 								width={500}
 								height={400}
-								className='absolute top-0 w-full h-96 object-cover rounded-t-3xl z-10'
+								className='w-full sm:h-96 object-cover rounded-t-3xl z-10 '
 							/>
-						)} */}
+						)}
+						{modalIsOpen.name === 'Burger BBQ' && (
+							<Image
+								src={bbq}
+								alt='Burger BBQ'
+								width={500}
+								height={400}
+								className='w-full sm:h-96 object-cover rounded-t-3xl z-10 '
+							/>
+						)}
+						{modalIsOpen.name === 'Burger 4 Quesos' && (
+							<Image
+								src={fourquesos}
+								alt='Burger 4 Quesos'
+								width={500}
+								height={400}
+								className='w-full sm:h-96 object-cover rounded-t-3xl z-10 '
+							/>
+						)}
 
-						<div className='flex flex-col justify-end gap-6 h-full p-6'>
-							<h3 className='text-xl font-semibold mt-8'>{modalIsOpen.name}</h3>
+						<div className='flex flex-col justify-end gap-6 h-full p-4'>
+							<h3 className='text-xl font-semibold'>{modalIsOpen.name}</h3>
 
 							<p className='text-sm sm:text-medium'>
 								{modalIsOpen.description}
@@ -174,43 +259,47 @@ export default function AddToCart({
 									onChange={handleSizeChange}
 								>
 									<option className='text-black' value='Simple'>
-										Simple
+										Simple - ${articleQuantity.price}
 									</option>
 									<option className='text-black' value='Doble'>
-										Doble
+										Doble - $
+										{articleQuantity.price && articleQuantity.price + 1000}
 									</option>
 									<option className='text-black' value='Triple'>
-										Triple
+										Triple - $
+										{articleQuantity.price && articleQuantity.price + 2000}
 									</option>
 								</select>
 							)}
 
 							<div className='flex justify-between items-center'>
 								<p className='items-center mr-4 font-semibold sm:text-lg text-[#491718]'>
-									${articleQuantity.quantity === 0 ? '0' : modalIsOpen.price}
+									$
+									{articleQuantity.quantity === 0 ? '0' : articleQuantity.price}
 									{articleQuantity.quantity > 1 &&
 										` x ${articleQuantity.quantity} = $${
-											modalIsOpen.price * articleQuantity.quantity
+											articleQuantity.price &&
+											articleQuantity.price * articleQuantity.quantity
 										}`}
 								</p>
 
 								<div className='grid grid-cols-3 justify-center w-40 h-10 text-xl font-semibold'>
 									<button
-										className='flex justify-center items-center border-2 size-12 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-full cursor-pointer select-none transition '
+										className='flex justify-center items-center border-2 size-10 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-full cursor-pointer select-none transition '
 										name='minusButton'
 										onClick={articleHandler}
 									>
 										-
 									</button>
 									<p
-										className={`flex justify-center items-center rounded-full border-2 border-[#491718] size-12 cursor-default select-none ${
+										className={`flex justify-center items-center rounded-full border-2 border-[#491718] size-10 cursor-default select-none ${
 											articleQuantity.quantity && 'bg-[#491718] text-white'
 										}`}
 									>
 										{articleQuantity.quantity}
 									</p>
 									<button
-										className='flex justify-center items-center size-12 border-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-full cursor-pointer select-none transition'
+										className='flex justify-center items-center size-10 border-2 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-full cursor-pointer select-none transition'
 										name='plusButton'
 										onClick={articleHandler}
 									>
