@@ -259,15 +259,13 @@ export default function AddToCart({
 									onChange={handleSizeChange}
 								>
 									<option className='text-black' value='Simple'>
-										Simple - ${articleQuantity.price}
+										Simple - $9000
 									</option>
 									<option className='text-black' value='Doble'>
-										Doble - $
-										{articleQuantity.price && articleQuantity.price + 1000}
+										Doble - $10000
 									</option>
 									<option className='text-black' value='Triple'>
-										Triple - $
-										{articleQuantity.price && articleQuantity.price + 2000}
+										Triple - $11000
 									</option>
 								</select>
 							)}

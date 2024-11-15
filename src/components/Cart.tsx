@@ -39,12 +39,14 @@ export const Cart = ({
 		errorName: '',
 		errorPayment: '',
 		errorDispatch: '',
+		errorAddress: '',
 	});
 	const [message, setMessage] = useState<Message>({
 		order,
 		orderName: '',
 		orderPayment: '',
 		orderDispatch: '',
+		orderAddress: '',
 		orderNote: '',
 	});
 	const [delivery, setDelivery] = useState(false);
@@ -69,7 +71,13 @@ export const Cart = ({
 			| HTMLTextAreaElement;
 
 		if (target.value === 'Envio/Retiro') setDelivery(false);
-		if (target.value === 'Retiro') setDelivery(false);
+		if (target.value === 'Retiro') {
+			setDelivery(false);
+			setError((prev) => ({
+				...prev,
+				errorAddress: '',
+			}));
+		}
 		if (target.value === 'Envio') setDelivery(true);
 
 		setMessage({
@@ -84,9 +92,19 @@ export const Cart = ({
 				? 'errorName'
 				: target.name === 'orderPayment'
 				? 'errorPayment'
+				: target.name === 'orderAddress'
+				? 'errorAddress'
 				: 'errorDispatch']: '',
 		}));
 	};
+
+	useEffect(() => {
+		if (!delivery)
+			setMessage({
+				...message,
+				orderAddress: '',
+			});
+	}, [delivery]);
 
 	const handleSubmit: orderHandler = (event) => {
 		event.preventDefault();
@@ -96,6 +114,7 @@ export const Cart = ({
 			errorName: '',
 			errorPayment: '',
 			errorDispatch: '',
+			errorAddress: '',
 		});
 
 		let formIsValid = true;
@@ -132,13 +151,23 @@ export const Cart = ({
 			formIsValid = false;
 		}
 
+		if (message.orderDispatch === 'Envio' && !message.orderAddress) {
+			setError((prev) => ({
+				...prev,
+				errorAddress: 'Completa la dirección.',
+			}));
+			formIsValid = false;
+		}
+
 		if (formIsValid) {
 			const phoneNumber = '541141786108';
 			const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
 				`\n*Nombre:* ${message.orderName}\n*Pago:* ${
 					message.orderPayment
-				}\n*Delivery:* ${delivery ? 'Si' : 'No'}\n${
-					message.orderNote ? `*Observación:* ${message.orderNote}\n` : ''
+				}\n*Delivery:* ${delivery ? 'Si' : 'No'}${
+					message.orderAddress ? `\n*Dirección:* ${message.orderAddress}` : ''
+				}${
+					message.orderNote ? `\n*Observación:* ${message.orderNote}` : ''
 				}\n-------------------------------\n*PEDIDO*\n\n${order.articles
 					.map((article) => {
 						const sizeText =
@@ -328,7 +357,7 @@ export const Cart = ({
 										duration: 0.3,
 										delay: 0,
 									}}
-									className='ml-2 mb-2 text-red-600 font-medium text-sm'
+									className='mb-2 text-red-600 font-medium text-sm'
 								>
 									{error.errorOrder}
 								</motion.p>
@@ -371,7 +400,7 @@ export const Cart = ({
 									<option className='text-black' value='Efectivo'>
 										Efectivo
 									</option>
-									<option className='text-black' value='Tranferencia'>
+									<option className='text-black' value='Transferencia'>
 										Transferencia
 									</option>
 								</select>
@@ -419,6 +448,38 @@ export const Cart = ({
 										className='flex ml-2 mb-2 text-red-600 font-medium text-sm'
 									>
 										{error.errorDispatch}
+									</motion.p>
+								)}
+
+								{delivery && (
+									<motion.input
+										initial={{ opacity: 0, y: -15 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{
+											duration: 0.3,
+											delay: 0,
+										}}
+										className='p-2 w-full rounded-xl bg-black bg-opacity-5 placeholder:text-black/60 mb-2 border-2 border-[#d2a772] focus:border-[#491718] outline-none'
+										type='text'
+										placeholder='Dirección'
+										name='orderAddress'
+										value={message.orderAddress}
+										autoComplete='off'
+										onChange={handleMessageChange}
+									/>
+								)}
+
+								{error.errorAddress && (
+									<motion.p
+										initial={{ opacity: 0, y: -15 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{
+											duration: 0.3,
+											delay: 0,
+										}}
+										className='flex ml-2 mb-2 text-red-600 font-medium text-sm'
+									>
+										{error.errorAddress}
 									</motion.p>
 								)}
 

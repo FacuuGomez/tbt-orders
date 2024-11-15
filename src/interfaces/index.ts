@@ -31,6 +31,7 @@ export interface Message {
 	orderName: string;
 	orderPayment: string;
 	orderDispatch: string;
+	orderAddress: string;
 	orderNote: string;
 }
 
@@ -39,4 +40,5 @@ export interface Error {
 	errorName: string;
 	errorPayment: string;
 	errorDispatch: string;
+	errorAddress: string;
 }
