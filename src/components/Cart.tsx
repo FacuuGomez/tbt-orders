@@ -55,10 +55,18 @@ export const Cart = ({
 	const formRef = useRef<HTMLFormElement>(null);
 
 	useEffect(() => {
-		fetch('/api/phoneNumber')
-			.then((res) => res.json())
-			.then((data) => setPhoneNumber(data.phoneNumber))
-			.catch((error) => console.error('Error fetching phone number:', error));
+		const fetchPhoneNumber = async () => {
+			try {
+				const res = await fetch('/api/phoneNumber');
+				const data = await res.json();
+				setPhoneNumber(data.phoneNumber);
+			} catch (error) {
+				console.error('Error fetching phone number:', error);
+				setPhoneNumber(null);
+			}
+		};
+
+		fetchPhoneNumber();
 	}, []);
 
 	// const deleteOrder: deleteOrderHandler = (event) => {
@@ -167,7 +175,7 @@ export const Cart = ({
 			formIsValid = false;
 		}
 
-		if (formIsValid) {
+		if (formIsValid && phoneNumber) {
 			const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
 				`\n*Nombre:* ${message.orderName}\n*Pago:* ${
 					message.orderPayment
