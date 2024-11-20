@@ -50,8 +50,16 @@ export const Cart = ({
 		orderNote: '',
 	});
 	const [delivery, setDelivery] = useState(false);
+	const [phoneNumber, setPhoneNumber] = useState<string | null>(null);
 
 	const formRef = useRef<HTMLFormElement>(null);
+
+	useEffect(() => {
+		fetch('/api/phoneNumber')
+			.then((res) => res.json())
+			.then((data) => setPhoneNumber(data.phoneNumber))
+			.catch((error) => console.error('Error fetching phone number:', error));
+	}, []);
 
 	// const deleteOrder: deleteOrderHandler = (event) => {
 	// 	const newOrder = order.articles.filter(
@@ -160,7 +168,6 @@ export const Cart = ({
 		}
 
 		if (formIsValid) {
-			const phoneNumber = '541141786108';
 			const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
 				`\n*Nombre:* ${message.orderName}\n*Pago:* ${
 					message.orderPayment
