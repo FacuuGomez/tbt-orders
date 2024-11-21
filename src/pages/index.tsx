@@ -110,15 +110,15 @@ export default function Home({ initialProducts }: Props) {
 			{modalConfirm && (
 				<div className='fixed flex w-full justify-center z-40'>
 					<motion.div
-						initial={{ opacity: 0, y: -100 }} // Comienza arriba con opacidad 0
-						animate={{ opacity: 1, y: 0 }} // Se desliza hacia su posición original
+						initial={{ opacity: 0, y: -100 }}
+						animate={{ opacity: 1, y: 0 }}
 						transition={{
-							duration: 0.3, // Ajusta la duración de la animación
-							delay: 0.1, // Agrega un pequeño retraso opcional
-							ease: [0, 0.71, 0.2, 1.01], // Mantén la curva de animación
+							duration: 0.3,
+							delay: 0.1,
+							ease: [0, 0.71, 0.2, 1.01],
 						}}
-						exit={{ opacity: 0, y: -100 }} // Se mueve hacia arriba al salir
-						className='relative text-center bg-[#D2A772] mt-2 p-4 md:max-w-2xl w-72 rounded-2xl'
+						exit={{ opacity: 0, y: -100 }}
+						className='relative text-center bg-[#D2A772] mt-4 p-4 md:max-w-2xl w-72 rounded-2xl'
 					>
 						<p className='text-[#491718] font-semibold'>Se agregó al carrito</p>
 					</motion.div>
