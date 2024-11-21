@@ -117,7 +117,7 @@ export default function Home({ initialProducts }: Props) {
 						ease: [0, 0.71, 0.2, 1.01],
 					}}
 					exit={{ opacity: 0, y: -100 }}
-					className='fixed flex w-full justify-center z-40 bg-gradient-to-b from-black/60 to-transparent backdrop-blur-sm'
+					className='fixed flex w-full justify-center z-40 bg-gradient-to-b from-black/60 to-transparent'
 				>
 					<motion.div
 						initial={{ opacity: 0, y: -100 }}
