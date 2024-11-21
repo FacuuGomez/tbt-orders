@@ -37,6 +37,7 @@ export default function Home({ initialProducts }: Props) {
 		useState<Product>(inititalBurgerOpen);
 	const [articlesIsOpen, setArticlesIsOpen] = useState(true);
 	const [order, setOrder] = useState<Order>(inititalOrder);
+	const [modalConfirm, setModalConfirm] = useState(false);
 
 	const [products, setProducts] = useState<Product[]>(initialProducts);
 
@@ -79,6 +80,16 @@ export default function Home({ initialProducts }: Props) {
 		setArticlesIsOpen(false);
 	};
 
+	useEffect(() => {
+		if (order.totalBurgers > 0) {
+			setModalConfirm(true);
+			const timer = setTimeout(() => {
+				setModalConfirm(false);
+			}, 2000);
+			return () => clearTimeout(timer);
+		}
+	}, [order.totalBurgers]);
+
 	return (
 		<div className='min-h-screen w-full flex-col'>
 			<Navbar
@@ -87,7 +98,6 @@ export default function Home({ initialProducts }: Props) {
 				openBurgers={openBurgers}
 				openDrinks={openDrinks}
 			/>
-
 			<div className={modalIsOpen ? 'fixed w-full z-20' : 'hidden'}>
 				<Cart
 					closeModal={closeModal}
@@ -97,6 +107,23 @@ export default function Home({ initialProducts }: Props) {
 				/>
 			</div>
 
+			{modalConfirm && (
+				<div className='fixed flex w-full justify-center z-40'>
+					<motion.div
+						initial={{ opacity: 0, y: -100 }} // Comienza arriba con opacidad 0
+						animate={{ opacity: 1, y: 0 }} // Se desliza hacia su posición original
+						transition={{
+							duration: 0.3, // Ajusta la duración de la animación
+							delay: 0.1, // Agrega un pequeño retraso opcional
+							ease: [0, 0.71, 0.2, 1.01], // Mantén la curva de animación
+						}}
+						exit={{ opacity: 0, y: -100 }} // Se mueve hacia arriba al salir
+						className='relative text-center bg-[#491718] mt-2 p-4 md:max-w-2xl w-72 rounded-2xl'
+					>
+						<p className='text-[#D2A772] font-semibold'>Se agregó al carrito</p>
+					</motion.div>
+				</div>
+			)}
 			<div className={modalBurgerIsOpen?.id ? 'fixed w-full  z-20' : 'hidden'}>
 				<AddToCart
 					closeModal={() => {
@@ -108,7 +135,6 @@ export default function Home({ initialProducts }: Props) {
 					setOrder={setOrder}
 				/>
 			</div>
-
 			<main className='flex justify-center min-h-screen bg-[#D2A772]'>
 				<div className='mx-4 sm:max-w-2xl md:max-w-4xl xl:max-w-7xl w-full mt-32 sm:mt-36 py-6'>
 					<AnimatePresence>
@@ -248,7 +274,6 @@ export default function Home({ initialProducts }: Props) {
 					</AnimatePresence>
 				</div>
 			</main>
-
 			<Footer />
 		</div>
 	);
