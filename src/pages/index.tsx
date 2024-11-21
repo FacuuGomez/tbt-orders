@@ -108,21 +108,31 @@ export default function Home({ initialProducts }: Props) {
 			</div>
 
 			{modalConfirm && (
-				<div className='fixed flex w-full justify-center z-40'>
+				<motion.div
+					initial={{ opacity: 0, y: -100 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{
+						duration: 0.2,
+						delay: 0.1,
+						ease: [0, 0.71, 0.2, 1.01],
+					}}
+					exit={{ opacity: 0, y: -100 }}
+					className='fixed flex w-full justify-center z-40 bg-gradient-to-b from-black/60 to-transparent backdrop-blur-sm'
+				>
 					<motion.div
 						initial={{ opacity: 0, y: -100 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{
-							duration: 0.3,
+							duration: 0.4,
 							delay: 0.1,
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						exit={{ opacity: 0, y: -100 }}
-						className='relative text-center bg-[#D2A772] mt-4 p-4 md:max-w-2xl w-72 rounded-2xl'
+						className='relative text-center bg-[#D2A772] m-4 p-4 md:max-w-2xl w-72 rounded-2xl'
 					>
 						<p className='text-[#491718] font-semibold'>Se agregó al carrito</p>
 					</motion.div>
-				</div>
+				</motion.div>
 			)}
 			<div className={modalBurgerIsOpen?.id ? 'fixed w-full  z-20' : 'hidden'}>
 				<AddToCart
