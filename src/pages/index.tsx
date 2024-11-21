@@ -118,9 +118,9 @@ export default function Home({ initialProducts }: Props) {
 							ease: [0, 0.71, 0.2, 1.01], // Mantén la curva de animación
 						}}
 						exit={{ opacity: 0, y: -100 }} // Se mueve hacia arriba al salir
-						className='relative text-center bg-[#491718] mt-2 p-4 md:max-w-2xl w-72 rounded-2xl'
+						className='relative text-center bg-[#D2A772] mt-2 p-4 md:max-w-2xl w-72 rounded-2xl'
 					>
-						<p className='text-[#D2A772] font-semibold'>Se agregó al carrito</p>
+						<p className='text-[#491718] font-semibold'>Se agregó al carrito</p>
 					</motion.div>
 				</div>
 			)}
