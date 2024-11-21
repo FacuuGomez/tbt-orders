@@ -155,12 +155,12 @@ export default function AddToCart({
 		} else if (articleQuantity.size === 'Doble') {
 			setArticleQuantity({
 				...articleQuantity,
-				price: modalIsOpen?.price && modalIsOpen?.price + 1000,
+				price: modalIsOpen?.price && modalIsOpen?.price + 2000,
 			});
 		} else if (articleQuantity.size === 'Triple') {
 			setArticleQuantity({
 				...articleQuantity,
-				price: modalIsOpen?.price && modalIsOpen?.price + 2000,
+				price: modalIsOpen?.price && modalIsOpen?.price + 3000,
 			});
 		}
 	}, [articleQuantity.size]);
@@ -198,7 +198,15 @@ export default function AddToCart({
 					>
 						<button
 							className='flex absolute top-4 right-4 z-20'
-							onClick={closeModal}
+							onClick={() => {
+								closeModal && closeModal();
+								setArticleQuantity({
+									...articleQuantity,
+									name: modalIsOpen?.name,
+									size: 'Simple',
+									quantity: 0,
+								});
+							}}
 						>
 							<FontAwesomeIcon
 								className=' size-8 hover:text-[#3a1212] active:text-[#491718] cursor-pointer'
@@ -259,13 +267,13 @@ export default function AddToCart({
 									onChange={handleSizeChange}
 								>
 									<option className='text-black' value='Simple'>
-										Simple - $9000
+										Simple - $10000
 									</option>
 									<option className='text-black' value='Doble'>
-										Doble - $10000
+										Doble - $12000
 									</option>
 									<option className='text-black' value='Triple'>
-										Triple - $11000
+										Triple - $13000
 									</option>
 								</select>
 							)}
@@ -281,7 +289,7 @@ export default function AddToCart({
 										}`}
 								</p>
 
-								<div className='grid grid-cols-3 justify-center w-40 h-10 text-xl font-semibold'>
+								<div className='grid grid-cols-3 gap-2 h-10 text-xl font-semibold'>
 									<button
 										className='flex justify-center items-center border-2 size-10 border-[#491718] hover:none md:hover:bg-[#491718] md:hover:text-white active:hover:text-white active:bg-[#491718] md:active:opacity-70 rounded-full cursor-pointer select-none transition '
 										name='minusButton'
