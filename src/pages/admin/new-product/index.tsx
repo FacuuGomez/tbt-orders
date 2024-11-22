@@ -33,7 +33,6 @@ export default function NewProduct() {
 	const router = useRouter();
 
 	const createProduct = async (product: Product) =>
-		// await fetch('http://localhost:3000/api/products', {
 		await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
 			method: 'POST',
 			body: JSON.stringify(product),
@@ -43,7 +42,6 @@ export default function NewProduct() {
 		});
 
 	const updateProduct = async (id: string, product: Product) => {
-		// await fetch('http://localhost:3000/api/products/' + id, {
 		await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/` + id, {
 			method: 'PUT',
 			body: JSON.stringify(product),
@@ -55,7 +53,6 @@ export default function NewProduct() {
 
 	const editProduct = async (id: string) => {
 		if (id && !product.id) {
-			// const res = await fetch('http://localhost:3000/api/products/' + id);
 			const res = await fetch(
 				`${process.env.NEXT_PUBLIC_API_URL}/api/products/` + id
 			);

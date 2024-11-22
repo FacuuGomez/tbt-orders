@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Navbar } from '@/components/Navbar';
 import { Cart } from '@/components/Cart';
 import { Footer } from '@/components/Footer';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AddToCart from '@/components/AddToCart';
 import { Product, Order } from '@/interfaces';
@@ -38,8 +38,8 @@ export default function Home({ initialProducts }: Props) {
 	const [articlesIsOpen, setArticlesIsOpen] = useState(true);
 	const [order, setOrder] = useState<Order>(inititalOrder);
 	const [modalConfirm, setModalConfirm] = useState(false);
-
 	const [products, setProducts] = useState<Product[]>(initialProducts);
+	const prevTotalBurgersRef = useRef(0);
 
 	const fetchNewProducts = async () => {
 		// const res = await fetch('http://localhost:3000/api/products');
@@ -81,12 +81,20 @@ export default function Home({ initialProducts }: Props) {
 	};
 
 	useEffect(() => {
-		if (order.totalBurgers > 0) {
+		if (
+			order.totalBurgers > 0 &&
+			order.totalBurgers > prevTotalBurgersRef.current
+		) {
 			setModalConfirm(true);
 			const timer = setTimeout(() => {
 				setModalConfirm(false);
-			}, 2000);
+			}, 1750);
+
+			prevTotalBurgersRef.current = order.totalBurgers;
+
 			return () => clearTimeout(timer);
+		} else {
+			prevTotalBurgersRef.current = order.totalBurgers;
 		}
 	}, [order.totalBurgers]);
 
@@ -128,12 +136,15 @@ export default function Home({ initialProducts }: Props) {
 							ease: [0, 0.71, 0.2, 1.01],
 						}}
 						exit={{ opacity: 0, y: -100 }}
-						className='relative text-center bg-[#D2A772] m-4 p-4 md:max-w-2xl w-72 rounded-2xl'
+						className='relative text-center bg-[#D2A772] m-4 md:max-w-2xl w-72 rounded-2xl'
 					>
-						<p className='text-[#491718] font-semibold'>Se agregó al carrito</p>
+						<p className='text-[#491718] font-semibold bg-black/5 p-4'>
+							Se agregó al carrito
+						</p>
 					</motion.div>
 				</motion.div>
 			)}
+
 			<div className={modalBurgerIsOpen?.id ? 'fixed w-full  z-20' : 'hidden'}>
 				<AddToCart
 					closeModal={() => {
