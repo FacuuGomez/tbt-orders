@@ -27,8 +27,6 @@ interface ArticleQuantity {
 	price?: number;
 }
 
-// type SizeBurger = 'SIMPLE' | 'DOBLE' | 'TRIPLE';
-
 const initialQuantity = {
 	name: '',
 	size: '',
@@ -124,12 +122,27 @@ export default function AddToCart({
 	};
 
 	useEffect(() => {
+		setArticleList(order.articles);
+	}, [order.totalArticles]);
+
+	useEffect(() => {
 		if (articleList.length > 0) {
 			const updatedTotalAmount = articleList.reduce((total, article) => {
 				return total + article.price * article.quantity;
 			}, 0);
 
-			const totalArticles = totalBurgers + totalDrinks;
+			const totalArticles = articleList.reduce(
+				(total, article) => total + article.quantity,
+				0
+			);
+
+			const totalBurgers = articleList
+				.filter((a) => a.product === 'burger')
+				.reduce((total, article) => total + article.quantity, 0);
+
+			const totalDrinks = articleList
+				.filter((a) => a.product === 'drink')
+				.reduce((total, article) => total + article.quantity, 0);
 
 			setOrder({
 				articles: articleList,

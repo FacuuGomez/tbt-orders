@@ -2,15 +2,13 @@
 
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { Order, Message, Error } from '@/interfaces';
+import { Order, Message, Error, Article } from '@/interfaces';
 
 const deliveryValue = 2000;
-
-type deleteOrderHandler = (event: React.MouseEvent<HTMLButtonElement>) => void;
 
 type orderHandler = (event: React.FormEvent<HTMLFormElement>) => void;
 
@@ -69,16 +67,20 @@ export const Cart = ({
 		fetchPhoneNumber();
 	}, []);
 
-	// const deleteOrder: deleteOrderHandler = (event) => {
-	// 	const newOrder = order.articles.filter(
-	// 		(article) => article.name !== event.currentTarget.name
-	// 	);
+	const deleteOrder = (article: Article) => {
+		const newOrder = order.articles.filter(
+			(a) => a.name !== article.name || a.size !== article.size
+		);
 
-	// 	setOrder({
-	// 		...order,
-	// 		articles: newOrder,
-	// 	});
-	// };
+		setOrder((prev) => ({
+			...prev,
+			articles: newOrder,
+			totalBurgers: prev.totalBurgers - article.quantity,
+			totalDrinks: 0,
+			totalArticles: prev.totalArticles - article.quantity,
+			totalAmount: prev.totalAmount - article.quantity * article.price,
+		}));
+	};
 
 	const handleMessageChange: messageOrderHandler = (event) => {
 		const target = event.target as
@@ -246,12 +248,6 @@ export const Cart = ({
 							<h3 className='text-3xl font-bold pb-6'>PEDIDO</h3>
 
 							<div className='relative flex justify-center'>
-								{/* {order.totalArticles > 1 ? (
-									<div className='absolute top-0 left-0 w-full h-10 mr-2 gradient-top'></div>
-								) : (
-									''
-								)} */}
-
 								<ul className='w-full max-h-[200px] sm:max-h-[300px] snap-y overflow-y-auto'>
 									{!order.totalArticles ? (
 										<li className='flex justify-center items-center text-xl h-10 mb-4 opacity-60'>
@@ -263,14 +259,18 @@ export const Cart = ({
 												className='flex justify-between items-center mb-2 mr-[6px]'
 												key={`${article.name}-${index}`}
 											>
-												<div className='flex items-center w-full'>
-													{/* <Image
-														src={`/assets/${article.image}`}
-														className='w-20 sm:w-28 mr-4 cursor-pointer rounded-2xl'
-														alt='American burger'
-														width={90}
-														height={90}
-													/> */}
+												<div className='relative flex items-center w-full'>
+													<label className='absolute top-0 right-0'>
+														<button
+															onClick={() => deleteOrder(article)}
+															className='rounded-full bg-red-600  active:bg-red-700 sm:hover:bg-red-700 sm:active:bg-red-600 text-[#d2a772]'
+														>
+															<FontAwesomeIcon
+																className='size-8 p-2 cursor-pointer'
+																icon={faTrash}
+															/>
+														</button>
+													</label>
 
 													<div>
 														<div className='size-28 sm:size-32 mr-4 rounded-2xl bg-[#491718] flex justify-center items-center'>
