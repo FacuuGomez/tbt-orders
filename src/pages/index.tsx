@@ -138,7 +138,7 @@ export default function Home({ initialProducts }: Props) {
 						exit={{ opacity: 0, y: -100 }}
 						className='relative text-center bg-[#D2A772] m-4 md:max-w-2xl w-72 rounded-2xl'
 					>
-						<p className='text-[#491718] font-semibold bg-black/5 p-4'>
+						<p className='text-[#491718] font-semibold bg-black/5 p-4 rounded-2xl'>
 							Se agregó al carrito
 						</p>
 					</motion.div>

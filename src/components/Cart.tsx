@@ -304,7 +304,7 @@ export const Cart = ({
 																		: 'Unidad'}
 																</p>
 																<p className='flex justify-start'>
-																	Cant.: {article.quantity} x ${article.price}
+																	{article.quantity} x ${article.price}
 																</p>
 															</div>
 															<div>
