@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { Order, Message, Error, Article } from '@/interfaces';
 
-const deliveryValue = 4000;
+const deliveryValue = 3000;
 
 type orderHandler = (event: React.FormEvent<HTMLFormElement>) => void;
 
